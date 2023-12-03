@@ -1,0 +1,25 @@
+
+loopback_interfaces:
+  - name: Loopback0
+    description: "Router ID"
+    shutdown: False
+    vrf: default
+    ip_address: "{{ rid }}/32"
+    isis_enable: "CORE-ISIS"
+    isis_passive: True
+    node_segment:
+      ipv4_index: "{{ rid.split('.')[3] }}"
+  - name: Loopback1018
+    description: "Router ID"
+    shutdown: False
+    vrf: CLIENTS
+    ip_address: "1.18.10.{{ rid.split('.')[3] }}/32"
+
+vlan_interfaces:
+- name: "Vlan1810"
+  description: vrf-clients-xco-firewall-site01
+  shutdown: False
+  vrf: CLIENTS
+  ip_address: "10.18.10.{{ rid.split('.')[3] }}/24"
+  ip_virtual_router_addresses:
+    - "10.18.10.1"

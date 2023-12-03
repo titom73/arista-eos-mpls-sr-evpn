@@ -1,0 +1,4 @@
+# requirements.yml
+collections:
+  - name: arista.avd
+    version: 4.4.0

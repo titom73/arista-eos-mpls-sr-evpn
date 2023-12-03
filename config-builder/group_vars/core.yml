@@ -1,0 +1,31 @@
+asn: 65000
+
+loopback_interfaces:
+  - name: Loopback0
+    description: "Router ID"
+    shutdown: False
+    vrf: default
+    ip_address: "{{ rid }}/32"
+    isis_enable: "CORE-ISIS"
+    isis_passive: True
+    node_segment:
+      ipv4_index: "{{ rid.split('.')[3] }}"
+
+mpls:
+  ip: True
+
+router_isis:
+  instance: "CORE-ISIS"
+  net: "{%if rid.split('.')[3] | length == 3 %}49.0192.0168.0000.0{{ rid.split('.')[3] }}.00{% else %}49.0192.0168.0000.00{{ rid.split('.')[3] }}.00{%endif%}"
+  router_id: "{{ rid }}"
+  is_type: level-2
+  log_adjacency_changes: True
+  advertise:
+    passive_only: True
+  address_family_ipv4:
+    enabled: True
+    # fast_reroute_ti_lfa:
+    #   mode: "link-protection"
+  segment_routing_mpls:
+    enabled: True
+    router_id: "{{rid}}"

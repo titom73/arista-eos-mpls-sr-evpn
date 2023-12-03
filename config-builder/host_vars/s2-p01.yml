@@ -1,0 +1,38 @@
+ethernet_interfaces:
+# --------------------------------- #
+# TO PE INTERFACES
+# --------------------------------- #
+- name: Ethernet1
+  peer: s2-pe01
+  peer_interface: Ethernet1
+  description: S2-PE01_Ethernet1
+  shutdown: false
+  mtu: 1500
+  type: routed
+  ip_address: 10.0.2.1/31
+  isis_enable: "CORE-ISIS"
+  isis_network_point_to_point: True
+# --------------------------------- #
+# TO P INTERFACES
+# --------------------------------- #
+- name: Ethernet5
+  peer: s2-p02
+  peer_interface: Ethernet5
+  description: S2-P02_Ethernet5
+  shutdown: false
+  mtu: 1500
+  type: routed
+  ip_address: 10.0.0.6/31
+  isis_enable: "CORE-ISIS"
+  isis_network_point_to_point: True
+
+- name: Ethernet6
+  peer: s1-p01
+  peer_interface: Ethernet6
+  description: S1-P01_Ethernet6
+  shutdown: false
+  mtu: 1500
+  type: routed
+  ip_address: 10.0.0.3/31
+  isis_enable: "CORE-ISIS"
+  isis_network_point_to_point: True

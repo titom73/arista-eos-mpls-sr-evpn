@@ -1,0 +1,13 @@
+# list of EOS commands to collect in text format
+text_format:
+  - "show version"
+  - "show bgp summary vrf all"
+  - "show isis interface brief"
+  - "show isis neighbors"
+  - "show isis segment-routing prefix-segments"
+  - "show isis segment-routing tunnel"
+  - "show mpls segment-routing bindings"
+  - "show interfaces status"
+  - "show interfaces description"
+  - "show platform tfa personality"
+  - "show ip route vrf all"

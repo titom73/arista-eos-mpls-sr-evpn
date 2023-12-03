@@ -1,0 +1,70 @@
+vlans:
+  - id: 1810
+    name: "S1-FW-XCO"
+    tenant: "CLIENTS"
+
+ip_virtual_router_mac_address: 00:1c:73:00:dc:01
+
+vrfs:
+  - name: CLIENTS
+    description: CLIENTS VRF
+    ip_routing: True
+
+router_bgp:
+  as: "{{ asn }}"
+  router_id: "{{ rid }}"
+  bgp:
+    default:
+      ipv4_unicast: false
+  maximum_paths:
+    paths: 4
+    ecmp: 4
+  address_family_evpn:
+    peer_groups:
+      - name: EVPN-CORE
+        activate: True
+        encapsulation: "mpls"
+    neighbor_default:
+      encapsulation: "mpls"
+      next_hop_self_source_interface: Loopback0
+  peer_groups:
+    - name: EVPN-CORE
+      update_source: Loopback0
+      # route_reflector_client: True
+      type: ipv4
+      send_community: all
+  neighbors:
+    - ip_address: "{{ hostvars['s1-p01'].rid }}"
+      peer_group: EVPN-CORE
+      remote_as: "{{ asn }}"
+      description: "{{ hostvars['s2-p01'].inventory_hostname }}"
+    - ip_address: "{{ hostvars['s2-p01'].rid }}"
+      peer_group: EVPN-CORE
+      remote_as: "{{ asn }}"
+      description: "{{ hostvars['s2-p01'].inventory_hostname }}"
+  vrfs:
+    - name: CLIENTS
+      rd: "{{ rid }}:1"
+      route_targets:
+        import:
+        - address_family: evpn
+          route_targets:
+          - '1:1'
+        export:
+        - address_family: evpn
+          route_targets:
+          - '1:1'
+      redistribute_routes:
+        - source_protocol: static
+        - source_protocol: connected
+  vlans:
+    - id: 1810
+      tenant: "CLIENTS"
+      rd: "{{ rid }}:1810"
+      # eos_cli: <str>
+      route_targets:
+        both:
+          - "1810:1810"
+      redistribute_routes:
+        - "learned"
+        - "router-mac system default-gateway"

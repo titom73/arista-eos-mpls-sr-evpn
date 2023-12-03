@@ -1,0 +1,105 @@
+all:
+  vars:
+    # The generated inventory is assumed to be used from the clab host.
+    # Hence no http proxy should be used. Therefore we make sure the http
+    # module does not attempt using any global http proxy.
+    # ansible_httpapi_use_proxy: false
+    ansible_connection: httpapi
+    ansible_port: '{{ansible_httpapi_port }}'
+    ansible_httpapi_host: '{{ ansible_host }}'
+    ansible_httpapi_use_ssl: true
+    ansible_httpapi_validate_certs: false
+    ansible_httpapi_port: 443
+
+    ansible_network_os: eos
+    ansible_user: arista
+    ansible_password: arista
+    ansible_become: yes
+    ansible_become_method: enable
+  children:
+    ceos:
+      hosts:
+        s1-ce01:
+          ansible_host: 192.168.2.211
+          rid: 1.0.0.211
+        s1-ce02:
+          ansible_host: 192.168.2.212
+          rid: 1.0.0.212
+        s1-p01:
+          ansible_host: 192.168.2.111
+          rid: 1.0.0.111
+          node_segment:
+        s1-p02:
+          ansible_host: 192.168.2.112
+          rid: 1.0.0.112
+        s1-pe01:
+          ansible_host: 192.168.2.11
+          rid: 1.0.0.11
+        s1-pe02:
+          ansible_host: 192.168.2.12
+          rid: 1.0.0.12
+        s1-pe03:
+          ansible_host: 192.168.2.13
+          rid: 1.0.0.13
+        s1-pe04:
+          ansible_host: 192.168.2.14
+          rid: 1.0.0.14
+        s2-ce01:
+          ansible_host: 192.168.2.221
+          rid: 1.0.0.221
+        s2-p01:
+          ansible_host: 192.168.2.121
+          rid: 1.0.0.121
+        s2-p02:
+          ansible_host: 192.168.2.122
+          rid: 1.0.0.122
+        s2-pe01:
+          ansible_host: 192.168.2.21
+          rid: 1.0.0.21
+
+    core:
+      hosts:
+        s1-p01:
+        s1-p02:
+        s1-pe01:
+        s1-pe02:
+        s1-pe03:
+        s1-pe04:
+        s2-p01:
+        s2-p02:
+        s2-pe01:
+
+    rr:
+      hosts:
+        s1-p01:
+        s2-p01:
+
+    pe-nodes:
+      hosts:
+        # s1-p02:
+        s1-pe01:
+        s1-pe02:
+        s1-pe03:
+        s1-pe04:
+        # s2-p02:
+        s2-pe01:
+
+    s1-pe:
+      hosts:
+        s1-pe01:
+        s1-pe02:
+        s1-pe03:
+        s1-pe04:
+
+    site01:
+      hosts:
+        s1-p01:
+        s1-p02:
+        s1-pe01:
+        s1-pe02:
+        s1-pe03:
+        s1-pe04:
+        s2-p01:
+        s2-p02:
+        s2-pe01:
+

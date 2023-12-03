@@ -1,0 +1,143 @@
+name: atd-mpls-isis-sr
+
+mgmt:
+  network: atd-mpls-isis-sr
+  ipv4-subnet: 192.168.2.0/24
+
+topology:
+  kinds:
+    ceos:
+      image: arista/ceos:${EOS_VERSION:=4.31.0F}
+  nodes:
+  # -------------------------------- #
+  # Core P routers
+    s1-p01:
+      kind: ceos
+      mgmt-ipv4: 192.168.2.111
+      startup-config: config-builder/intended/configs/s1-p01.cfg
+      env:
+        TMODE: lacp
+    s1-p02:
+      kind: ceos
+      mgmt-ipv4: 192.168.2.112
+      startup-config: config-builder/intended/configs/s1-p02.cfg
+      env:
+        TMODE: lacp
+    s2-p01:
+      kind: ceos
+      mgmt-ipv4: 192.168.2.121
+      startup-config: config-builder/intended/configs/s2-p01.cfg
+      env:
+        TMODE: lacp
+    s2-p02:
+      kind: ceos
+      mgmt-ipv4: 192.168.2.122
+      startup-config: config-builder/intended/configs/s2-p02.cfg
+      env:
+        TMODE: lacp
+
+  # -------------------------------- #
+  # Site 1 PE
+    s1-pe01:
+      kind: ceos
+      mgmt-ipv4: 192.168.2.11
+      startup-config: config-builder/intended/configs/s1-pe01.cfg
+      # startup-config:
+      env:
+        TMODE: lacp
+    s1-pe02:
+      kind: ceos
+      mgmt-ipv4: 192.168.2.12
+      startup-config: config-builder/intended/configs/s1-pe02.cfg
+      # startup-config:
+      env:
+        TMODE: lacp
+    s1-pe03:
+      kind: ceos
+      mgmt-ipv4: 192.168.2.13
+      startup-config: config-builder/intended/configs/s1-pe03.cfg
+      # startup-config:
+      env:
+        TMODE: lacp
+    s1-pe04:
+      kind: ceos
+      mgmt-ipv4: 192.168.2.14
+      startup-config: config-builder/intended/configs/s1-pe04.cfg
+      # startup-config:
+      env:
+        TMODE: lacp
+
+  # -------------------------------- #
+  # Site 2 PE
+    s2-pe01:
+      kind: ceos
+      mgmt-ipv4: 192.168.2.21
+      startup-config: config-builder/intended/configs/s2-pe01.cfg
+      # startup-config:
+      env:
+        TMODE: lacp
+
+  # -------------------------------- #
+  # Site 1 CE
+    s1-ce01:
+      kind: ceos
+      mgmt-ipv4: 192.168.2.211
+      startup-config: config-builder/intended/configs/s1-ce01.cfg
+      # startup-config:
+      env:
+        TMODE: lacp
+    s1-ce02:
+      kind: ceos
+      mgmt-ipv4: 192.168.2.212
+      startup-config: config-builder/intended/configs/s1-ce02.cfg
+      # startup-config:
+      env:
+        TMODE: lacp
+
+  # -------------------------------- #
+  # Site 2 CE
+    s2-ce01:
+      kind: ceos
+      mgmt-ipv4: 192.168.2.221
+      startup-config: config-builder/intended/configs/s2-ce01.cfg
+      # startup-config:
+      env:
+        TMODE: lacp
+
+
+  links:
+  # -------------------------------- #
+  # Core network
+    - endpoints: ["s1-p01:eth5", "s1-p02:eth5"]
+    - endpoints: ["s1-p01:eth6", "s2-p01:eth6"]
+    - endpoints: ["s1-p02:eth6", "s2-p02:eth6"]
+    - endpoints: ["s2-p01:eth5", "s2-p02:eth5"]
+    - endpoints: ["s1-p01:eth7", "s2-p02:eth7"]
+
+  # Site 1 PE
+    - endpoints: ["s1-pe01:eth1", "s1-p01:eth1"]
+    - endpoints: ["s1-pe01:eth2", "s1-p02:eth1"]
+
+    - endpoints: ["s1-pe02:eth1", "s1-p01:eth2"]
+    - endpoints: ["s1-pe02:eth2", "s1-p02:eth2"]
+
+    - endpoints: ["s1-pe03:eth1", "s1-p01:eth3"]
+    - endpoints: ["s1-pe03:eth2", "s1-p02:eth3"]
+
+    - endpoints: ["s1-pe04:eth1", "s1-p01:eth4"]
+    - endpoints: ["s1-pe04:eth2", "s1-p02:eth4"]
+
+  # Site  CE
+    - endpoints: ["s1-ce01:eth1", "s1-pe01:eth4"]
+    - endpoints: ["s1-ce01:eth2", "s1-pe02:eth4"]
+
+    - endpoints: ["s1-ce02:eth1", "s1-pe03:eth4"]
+    - endpoints: ["s1-ce02:eth2", "s1-pe04:eth4"]
+
+  # Site 2 PE
+    - endpoints: ["s2-pe01:eth1", "s2-p01:eth1"]
+    - endpoints: ["s2-pe01:eth2", "s2-p02:eth1"]
+
+  # Site 2 CE
+    - endpoints: ["s2-ce01:eth1", "s2-pe01:eth4"]
+  # - endpoints: ["s2-ce01:eth2", "s2-pe02:eth4"]

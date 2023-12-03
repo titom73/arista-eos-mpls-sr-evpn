@@ -1,0 +1,9 @@
+text_format:
+  - "show version"
+  - "show platform tfa personality"
+  - "show interfaces status"
+  - "show interfaces description"
+  - "show ip route vrf all"
+  - "show mac address-table"
+  - "show vrrp vrf all brief"
+  - "show vrrp vrf all"
