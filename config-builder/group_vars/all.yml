@@ -1,4 +1,5 @@
 ---
+device_id: "{{ rid.split('.')[3] }}"
 hostname: "{{ inventory_hostname }}"
 
 local_users:
@@ -25,6 +26,11 @@ local_users:
     role: network-admin
     # password: arista123
     sha512_password: "$6$TyWn7NeXe/vBRl1t$S4fEOkPmpTGz7TLHCzDNP8D2UfpO3ciC2MuGmCaFMVF3B7zt9KSnt9yq99y69XBIY1HV/kO4QjOk32yRQOru5."
+
+static_routes:
+- vrf: default
+  destination_address_prefix: 0.0.0.0/0
+  gateway: 192.168.2.1
 
 management_ssh:
   enable: True

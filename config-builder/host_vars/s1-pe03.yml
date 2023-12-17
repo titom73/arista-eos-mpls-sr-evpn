@@ -28,6 +28,14 @@ ethernet_interfaces:
     id: 4
     mode: "active"
 
+vlan_interfaces:
+- name: "Vlan1810"
+  description: vrf-FW-HA-xco-firewall-site01
+  shutdown: False
+  vrf: FW-HA
+  ip_address: "10.18.10.{{ device_id }}/24"
+  ip_virtual_router_addresses:
+    - "10.18.10.1"
 
 port_channel_interfaces:
 - name: Port-Channel4

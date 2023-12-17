@@ -1,13 +1,36 @@
-vlans:
-  - id: 1810
-    name: "S1-FW-XCO"
-    tenant: "CLIENTS"
-
 ip_virtual_router_mac_address: 00:1c:73:00:dc:01
 
+ip_extcommunity_lists:
+  - name: EXTCOM-BKP
+    entries:
+      - type: 'permit'
+        extcommunities: 'rt 1:2'
+  - name: EXTCOM-CLIENT
+    entries:
+      - type: 'permit'
+        extcommunities: 'rt 1:1'
+
+route_maps:
+    # Route-map Name
+  - name: RM-SET-COLOR
+    sequence_numbers:
+      - sequence: 10
+        type: 'permit'
+        description: 'Add COLOR-02-BKP to BKP routes'
+        match:
+          - "extcommunity EXTCOM-BKP"
+        set:
+          - "extcommunity color 300 additive"
+      - sequence: 90
+        type: 'permit'
+        description: 'Default permit'
+
 vrfs:
-  - name: CLIENTS
-    description: CLIENTS VRF
+  - name: FW-HA
+    description: FW-HA VRF
+    ip_routing: True
+  - name: BKP
+    description: BACKUP VRF
     ip_routing: True
 
 router_bgp:
@@ -24,6 +47,7 @@ router_bgp:
       - name: EVPN-CORE
         activate: True
         encapsulation: "mpls"
+
     neighbor_default:
       encapsulation: "mpls"
       next_hop_self_source_interface: Loopback0
@@ -32,7 +56,9 @@ router_bgp:
       update_source: Loopback0
       # route_reflector_client: True
       type: ipv4
-      send_community: all
+      send_community: "standard extended"
+      # route_map_out: RM-SET-COLOR
+      route_map_in: RM-SET-COLOR
   neighbors:
     - ip_address: "{{ hostvars['s1-p01'].rid }}"
       peer_group: EVPN-CORE
@@ -43,7 +69,7 @@ router_bgp:
       remote_as: "{{ asn }}"
       description: "{{ hostvars['s2-p01'].inventory_hostname }}"
   vrfs:
-    - name: CLIENTS
+    - name: FW-HA
       rd: "{{ rid }}:1"
       route_targets:
         import:
@@ -57,9 +83,23 @@ router_bgp:
       redistribute_routes:
         - source_protocol: static
         - source_protocol: connected
+    - name: BKP
+      rd: "{{ rid }}:2"
+      route_targets:
+        import:
+        - address_family: evpn
+          route_targets:
+          - '1:2'
+        export:
+        - address_family: evpn
+          route_targets:
+          - '1:2'
+      redistribute_routes:
+        - source_protocol: static
+        - source_protocol: connected
   vlans:
     - id: 1810
-      tenant: "CLIENTS"
+      tenant: "FW-HA"
       rd: "{{ rid }}:1810"
       # eos_cli: <str>
       route_targets:

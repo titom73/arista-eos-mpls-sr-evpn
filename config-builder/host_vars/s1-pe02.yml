@@ -28,12 +28,28 @@ ethernet_interfaces:
     id: 4
     mode: "active"
 
+vlan_interfaces:
+- name: "Vlan1810"
+  description: vrf-FW-HA-xco-firewall-site01
+  shutdown: False
+  vrf: FW-HA
+  ip_address: "10.18.10.{{ device_id }}/24"
+  ip_virtual_router_addresses:
+    - "10.18.10.1"
+
+- name: "Vlan2001"
+  description: vrf-bkp-backup-flows
+  shutdown: False
+  vrf: BKP
+  ip_address: "10.200.1.{{ device_id }}/24"
+  ip_virtual_router_addresses:
+    - "10.200.1.1"
 
 port_channel_interfaces:
 - name: Port-Channel4
-  description: to s1-ce01 - firewall test - vrrp
+  description: to s1-ce01 - CLIENT use-case - Firewall emulation VRRP
   mode: "trunk"
-  vlans: "1810"
+  vlans: "1810,2001"
   evpn_ethernet_segment:
     identifier: 0000:0000:0101:0101:0101
     mpls:
