@@ -2,7 +2,7 @@
 
 ## Overview
 
-Lab for MPLS and ISIS-SR related to customer engagement based on containerlab and cEOS.
+Lab for MPLS and ISIS-SR related configurations based on containerlab and cEOS.
 
 ## Topology
 
