@@ -72,13 +72,17 @@
 
 ## Traffic Policies
 
+![VPN Steering topology](../imgs/vpn-steering-topology.png)
+
 | Color | PE Src | PE dst | Path |
 |-------|--------|--------|------|
 | 300 | `s1-pe01` | `s2-pe01` | via `s1-p01` -> `s2-p02` -> `s2-pe01` |
 
 ## Pre Allocated SID for links
 
-sid is based on concatenation of `5+index`:
+This SID allocation is here to allow to map colors on specific path if required. For the moment, it is not used in default topology.
+
+sid is based on concatenation of `9+index`:
 
 - S1 PE to P
   - Prefix:"10.0.1.0/31" - index: `50010`
