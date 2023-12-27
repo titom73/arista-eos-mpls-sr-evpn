@@ -51,12 +51,17 @@
 ### VLANS
 
 - Vlan: `1810`
+  - Description: Provides L2 extensions between S1-PE nodes for Firewall failover and VRRP.
   - route-target: `1810:1810`
   - redistribute_routes:
       - `learned`
       - `router-mac system default-gateway`
 - Vlan: `2001`
+  - Description: Backup service seated in S1 (no EVPN extension)
+  - SVI mapped to __BKP__ VRF
 - Vlan: `2002`
+  - Description: Backup service seated in S2 (no EVPN extension)
+  - SVI mapped to __BKP__ VRF
 
 ## Ethernet Segments
 
