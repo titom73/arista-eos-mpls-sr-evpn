@@ -5,38 +5,38 @@ anta_inventory:
   #  Core P routers
   # ------------------------------------- #
     - name: s1-p01
-      host: clab-atd-mpls-isis-sr-backbone-s1-p01
+      host: 192.168.2.111
       tags: ['core']
     - name: s1-p02
-      host: clab-atd-mpls-isis-sr-backbone-s1-p02
+      host: 192.168.2.112
       tags: ['core']
     - name: s2-p01
-      host: clab-atd-mpls-isis-sr-backbone-s2-p01
+      host: 192.168.2.121
       tags: ['core']
     - name: s2-p02
-      host: clab-atd-mpls-isis-sr-backbone-s2-p02
+      host: 192.168.2.122
       tags: ['core']
   # ------------------------------------- #
   #  Site 01 - PE routers
   # ------------------------------------- #
     - name: s1-pe01
-      host: clab-atd-mpls-isis-sr-backbone-s1-pe01
+      host: 192.168.2.11
       tags: ['edge', 'core']
     - name: s1-pe02
-      host: clab-atd-mpls-isis-sr-backbone-s1-pe02
+      host: 192.168.2.12
       tags: ['edge', 'core']
     - name: s1-pe03
-      host: clab-atd-mpls-isis-sr-backbone-s1-pe03
+      host: 192.168.2.13
       tags: ['edge', 'core']
     - name: s1-pe04
-      host: clab-atd-mpls-isis-sr-backbone-s1-pe04
+      host: 192.168.2.14
       tags: ['edge', 'core']
   # ------------------------------------- #
   #  Site 01 - CE routers
   # ------------------------------------- #
     - name: s1-ce01
-      host: clab-atd-mpls-isis-sr-backbone-s1-ce01
+      host: 192.168.2.211
       tags: ['access']
     - name: s1-ce02
-      host: clab-atd-mpls-isis-sr-backbone-s1-ce02
+      host: 192.168.2.212
       tags: ['access']
