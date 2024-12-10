@@ -4,13 +4,18 @@ pe:
     platform: cEOS-lab
     loopback_ipv4_pool: 10.255.1.0/27
     virtual_router_mac_address: 00:1c:73:00:dc:00
-    mpls_route_reflectors: [ s1-p01, s2-p02 ]
+    mpls_overlay_role: client
+    evpn_role: client
+    evpn_route_servers:
+      - 's1-p01'
+      - 's2-p02'
+    mpls_route_reflectors:
+      - 's1-p01'
+      - 's2-p02'
     isis_system_id_prefix: '0000.0001'
     spanning_tree_mode: none
     overlay_address_families:
       - "evpn"
-
-
   node_groups:
     - group: site01-pe01-02
       nodes:

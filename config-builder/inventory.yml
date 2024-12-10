@@ -12,8 +12,8 @@ all:
     ansible_httpapi_port: 443
 
     ansible_network_os: eos
-    ansible_user: arista
-    ansible_password: arista
+    ansible_user: ansible
+    ansible_password: ansible
     ansible_become: yes
     ansible_become_method: enable
   children:

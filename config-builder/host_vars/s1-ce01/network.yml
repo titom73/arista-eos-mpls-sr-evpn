@@ -29,27 +29,29 @@ ethernet_interfaces:
 port_channel_interfaces:
 - name: Port-Channel1
   description: to s1-pe01 - firewall test - vrrp
-  vlans: "1810, 2001"
-  mode: "trunk"
+  switchport:
+    mode: trunk
+    trunk:
+      allowed_vlan: 1018,2001
 
 vlan_interfaces:
-- name: "Vlan1810"
-  description: vrf-FW-HA-xco-firewall-site01
-  shutdown: False
-  vrf: FW-HA
-  ip_address: "10.18.10.{{ device_id }}/24"
-  vrrp_ids:
-    - id: 10
-      priority_level: 100
-      ipv4:
-        address: 10.18.10.254
-        version: 3
+# - name: "Vlan1810"
+#   description: vrf-FW-HA-xco-firewall-site01
+#   shutdown: False
+#   vrf: FW-HA
+#   ip_address: "10.18.10.{{ device_id }}/24"
+#   vrrp_ids:
+#     - id: 10
+#       priority_level: 100
+#       ipv4:
+#         address: 10.18.10.254
+#         version: 3
 
-- name: "Vlan2001"
-  description: vrf-bkp-xco-site01
-  shutdown: False
-  vrf: BKP
-  ip_address: "10.200.1.{{ device_id }}/24"
+# - name: "Vlan2001"
+#   description: vrf-bkp-xco-site01
+#   shutdown: False
+#   vrf: BKP
+#   ip_address: "10.200.1.{{ device_id }}/24"
 
 static_routes:
   - vrf: FW-HA

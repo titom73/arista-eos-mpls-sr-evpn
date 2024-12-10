@@ -8,25 +8,26 @@ Lab for MPLS and ISIS-SR related configurations based on containerlab and cEOS.
 
 
 ```bash
-+----+-------------------------------+---------------------+------+---------+------------------+
-| #  |           Name                |        Image        | Kind |  Id     |   IPv4 Address   |
-+----+-------------------------------+---------------------+------+---------+------------------+
-|  1 | clab-atd-mpls-isis-sr-s1-ce01 | arista/ceos:4.31.0F | ceos | 211     | 192.168.2.211/24 |
-|  2 | clab-atd-mpls-isis-sr-s1-ce02 | arista/ceos:4.31.0F | ceos | 212     | 192.168.2.212/24 |
-|  3 | clab-atd-mpls-isis-sr-s1-p01  | arista/ceos:4.31.0F | ceos | 111     | 192.168.2.111/24 |
-|  4 | clab-atd-mpls-isis-sr-s1-p02  | arista/ceos:4.31.0F | ceos | 112     | 192.168.2.112/24 |
-|  5 | clab-atd-mpls-isis-sr-s1-pe01 | arista/ceos:4.31.0F | ceos | 11      | 192.168.2.11/24  |
-|  6 | clab-atd-mpls-isis-sr-s1-pe02 | arista/ceos:4.31.0F | ceos | 12      | 192.168.2.12/24  |
-|  7 | clab-atd-mpls-isis-sr-s1-pe03 | arista/ceos:4.31.0F | ceos | 13      | 192.168.2.13/24  |
-|  8 | clab-atd-mpls-isis-sr-s1-pe04 | arista/ceos:4.31.0F | ceos | 14      | 192.168.2.14/24  |
-|  9 | clab-atd-mpls-isis-sr-s2-ce01 | arista/ceos:4.31.0F | ceos | 221     | 192.168.2.221/24 |
-| 10 | clab-atd-mpls-isis-sr-s2-p01  | arista/ceos:4.31.0F | ceos | 121     | 192.168.2.121/24 |
-| 11 | clab-atd-mpls-isis-sr-s2-p02  | arista/ceos:4.31.0F | ceos | 122     | 192.168.2.122/24 |
-| 12 | clab-atd-mpls-isis-sr-s2-pe01 | arista/ceos:4.31.0F | ceos | 21      | 192.168.2.21/24  |
-+----+-------------------------------+---------------------+------+---------+------------------+
++----+-------------------------------+---------------------+------+------------------+
+| #  |             Name              |        Image        | Kind |   IPv4 Address   |
++----+-------------------------------+---------------------+------+------------------+
+|  1 | clab-atd-mpls-isis-sr-s1-ce01 | arista/ceos:4.31.0F | ceos | 192.168.2.211/24 |
+|  2 | clab-atd-mpls-isis-sr-s1-ce02 | arista/ceos:4.31.0F | ceos | 192.168.2.212/24 |
+|  3 | clab-atd-mpls-isis-sr-s1-ce03 | arista/ceos:4.31.0F | ceos | 192.168.2.213/24 |
+|  4 | clab-atd-mpls-isis-sr-s1-p01  | arista/ceos:4.31.0F | ceos | 192.168.2.111/24 |
+|  5 | clab-atd-mpls-isis-sr-s1-p02  | arista/ceos:4.31.0F | ceos | 192.168.2.112/24 |
+|  6 | clab-atd-mpls-isis-sr-s1-pe01 | arista/ceos:4.31.0F | ceos | 192.168.2.11/24  |
+|  7 | clab-atd-mpls-isis-sr-s1-pe02 | arista/ceos:4.31.0F | ceos | 192.168.2.12/24  |
+|  8 | clab-atd-mpls-isis-sr-s1-pe03 | arista/ceos:4.31.0F | ceos | 192.168.2.13/24  |
+|  9 | clab-atd-mpls-isis-sr-s1-pe04 | arista/ceos:4.31.0F | ceos | 192.168.2.14/24  |
+| 10 | clab-atd-mpls-isis-sr-s2-ce01 | arista/ceos:4.31.0F | ceos | 192.168.2.221/24 |
+| 11 | clab-atd-mpls-isis-sr-s2-p01  | arista/ceos:4.31.0F | ceos | 192.168.2.121/24 |
+| 12 | clab-atd-mpls-isis-sr-s2-p02  | arista/ceos:4.31.0F | ceos | 192.168.2.122/24 |
+| 13 | clab-atd-mpls-isis-sr-s2-pe01 | arista/ceos:4.31.0F | ceos | 192.168.2.21/24  |
++----+-------------------------------+---------------------+------+------------------+
 ```
 
-![Lab Topology](./imgs/topology.png)
+![Lab Topology](./lab-topology.drawio.png)
 
 Detailed information available under [`config-builder`](./config-builder/)
 
