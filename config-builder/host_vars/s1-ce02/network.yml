@@ -1,0 +1,67 @@
+vlans:
+  - id: 1810
+    name: "S1-FW-XCO"
+    tenant: "FW-HA"
+  - id: 2001
+    name: "BKP-SITE01"
+    tenant: "BKP"
+
+vrfs:
+  - name: FW-HA
+    description: FW-HA VRF
+    ip_routing: True
+  - name: BKP
+    description: BACKUP VRF
+    ip_routing: True
+
+ethernet_interfaces:
+- name: Ethernet1
+  peer: s1-pe01
+  channel_group:
+    id: 1
+    mode: "active"
+- name: Ethernet2
+  peer: s1-pe02
+  channel_group:
+    id: 1
+    mode: "active"
+
+port_channel_interfaces:
+- name: Port-Channel1
+  description: to s1-pe01 - firewall test - vrrp
+  switchport:
+    mode: trunk
+    trunk:
+      allowed_vlan: 1018,2001
+
+vlan_interfaces:
+# - name: "Vlan1810"
+#   description: vrf-FW-HA-xco-firewall-site01
+#   shutdown: False
+#   vrf: FW-HA
+#   ip_address: "10.18.10.{{ device_id }}/24"
+#   vrrp_ids:
+#     - id: 10
+#       priority_level: 100
+#       ipv4:
+#         address: 10.18.10.254
+#         version: 3
+
+# - name: "Vlan2001"
+#   description: vrf-bkp-xco-site01
+#   shutdown: False
+#   vrf: BKP
+#   ip_address: "10.200.1.{{ device_id }}/24"
+
+static_routes:
+  - vrf: FW-HA
+    destination_address_prefix: 0.0.0.0/0
+    gateway: 10.18.10.1
+
+  - vrf: BKP
+    destination_address_prefix: 0.0.0.0/0
+    gateway: 10.200.1.1
+
+  - vrf: default
+    destination_address_prefix: 0.0.0.0/0
+    gateway: 192.168.2.1

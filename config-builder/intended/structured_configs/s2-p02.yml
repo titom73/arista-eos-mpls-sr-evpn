@@ -1,0 +1,238 @@
+hostname: s2-p02
+is_deployed: true
+router_bgp:
+  as: '65001'
+  router_id: 10.255.0.4
+  bgp:
+    default:
+      ipv4_unicast: false
+  maximum_paths:
+    paths: 4
+    ecmp: 4
+  updates:
+    wait_install: true
+  bgp_cluster_id: 10.255.0.4
+  peer_groups:
+  - name: EVPN-OVERLAY-PEERS
+    type: evpn
+    update_source: Loopback0
+    bfd: true
+    send_community: all
+    maximum_routes: 0
+    remote_as: '65001'
+    route_reflector_client: true
+  - name: RR-OVERLAY-PEERS
+    type: mpls
+    update_source: Loopback0
+    bfd: true
+    send_community: all
+    maximum_routes: 0
+    remote_as: '65001'
+  address_family_evpn:
+    peer_groups:
+    - name: EVPN-OVERLAY-PEERS
+      activate: true
+  address_family_ipv4:
+    peer_groups:
+    - name: EVPN-OVERLAY-PEERS
+      activate: false
+    - name: RR-OVERLAY-PEERS
+      activate: false
+  neighbors:
+  - ip_address: 10.255.1.1
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: s1-pe01
+    description: s1-pe01_Loopback0
+  - ip_address: 10.255.1.2
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: s1-pe02
+    description: s1-pe02_Loopback0
+  - ip_address: 10.255.1.3
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: s1-pe03
+    description: s1-pe03_Loopback0
+  - ip_address: 10.255.1.4
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: s1-pe04
+    description: s1-pe04_Loopback0
+  - ip_address: 10.255.1.5
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: s2-pe01
+    description: s2-pe01_Loopback0
+service_routing_protocols_model: multi-agent
+ip_routing: true
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+aaa_root:
+  disabled: true
+config_end: true
+enable_password:
+  disabled: true
+transceiver_qsfp_default_mode_4x10: true
+ip_name_servers:
+- ip_address: 192.168.2.1
+  vrf: MGMT
+- ip_address: 8.8.8.8
+  vrf: MGMT
+spanning_tree:
+  mode: none
+local_users:
+- name: admin
+  privilege: 15
+  role: network-admin
+  no_password: true
+- name: ansible
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/
+- name: arista
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$7WhvEi5Ce5f5Ut3z$Ethmha7rb710RKsaVteusVOuNP1Utfjzse58xxbgiZp4MF0fp7BX5lAw8yBgv/HWCihVomuCSrsJx8wKnJ7Tm1
+- name: tom
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$TyWn7NeXe/vBRl1t$S4fEOkPmpTGz7TLHCzDNP8D2UfpO3ciC2MuGmCaFMVF3B7zt9KSnt9yq99y69XBIY1HV/kO4QjOk32yRQOru5.
+clock:
+  timezone: Europe/Paris
+vrfs:
+- name: MGMT
+  ip_routing: false
+management_interfaces:
+- name: Management1
+  description: OOB_MANAGEMENT
+  shutdown: false
+  vrf: MGMT
+  ip_address: 192.168.2.122/24
+  gateway: null
+  type: oob
+management_api_http:
+  enable_vrfs:
+  - name: MGMT
+  enable_https: true
+loopback_interfaces:
+- name: Loopback0
+  description: ROUTER_ID
+  shutdown: false
+  ip_address: 10.255.0.4/32
+  isis_enable: CORE
+  isis_passive: true
+  node_segment:
+    ipv4_index: 4
+router_isis:
+  instance: CORE
+  log_adjacency_changes: true
+  net: 49.0001.0102.5500.0004.00
+  router_id: 10.255.0.4
+  is_type: level-2
+  address_family_ipv4:
+    enabled: true
+    maximum_paths: 4
+    fast_reroute_ti_lfa:
+      mode: link-protection
+  advertise:
+    passive_only: true
+  segment_routing_mpls:
+    router_id: 10.255.0.4
+    enabled: true
+mpls:
+  ip: true
+router_bfd:
+  multihop:
+    interval: 300
+    min_rx: 300
+    multiplier: 3
+ethernet_interfaces:
+- name: Ethernet1
+  peer: s2-pe01
+  peer_interface: Ethernet2
+  peer_type: pe
+  switchport:
+    enabled: false
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.255.3.19/31
+  isis_enable: CORE
+  isis_metric: 50
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  isis_authentication:
+    both:
+      mode: md5
+      key: $1c$sTNAlR6rKSw=
+      key_type: '7'
+  mpls:
+    ip: true
+  description: P2P_s2-pe01_Ethernet2
+- name: Ethernet6
+  peer: s1-p02
+  peer_interface: Ethernet6
+  peer_type: p
+  switchport:
+    enabled: false
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.255.3.23/31
+  isis_enable: CORE
+  isis_metric: 50
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  isis_authentication:
+    both:
+      mode: md5
+      key: $1c$sTNAlR6rKSw=
+      key_type: '7'
+  mpls:
+    ip: true
+  description: P2P_s1-p02_Ethernet6
+- name: Ethernet5
+  peer: s2-p01
+  peer_interface: Ethernet5
+  peer_type: p
+  switchport:
+    enabled: false
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.255.3.27/31
+  isis_enable: CORE
+  isis_metric: 50
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  isis_authentication:
+    both:
+      mode: md5
+      key: $1c$sTNAlR6rKSw=
+      key_type: '7'
+  mpls:
+    ip: true
+  description: P2P_s2-p01_Ethernet5
+- name: Ethernet7
+  peer: s1-p01
+  peer_interface: Ethernet7
+  peer_type: p
+  switchport:
+    enabled: false
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.255.3.29/31
+  isis_enable: CORE
+  isis_metric: 50
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  isis_authentication:
+    both:
+      mode: md5
+      key: $1c$sTNAlR6rKSw=
+      key_type: '7'
+  mpls:
+    ip: true
+  description: P2P_s1-p01_Ethernet7
+metadata:
+  platform: cEOS-lab
