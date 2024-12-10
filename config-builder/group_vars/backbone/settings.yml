@@ -1,0 +1,24 @@
+fabric_name: backbone
+
+underlay_routing_protocol: isis-sr
+overlay_routing_protocol: ibgp
+
+bgp_as: 65001
+
+bgp_peer_groups:
+  mpls_overlay_peers:
+    # password: arista
+    password: Q4fqtbqcZ7oQuKfuWtNGRQ==
+
+p2p_uplinks_mtu: 1500
+
+
+custom_core_router_isis:
+  advertise:
+    passive_only: True
+  address_family_ipv4:
+    enabled: True
+    fast_reroute_ti_lfa:
+      mode: "link-protection"
+  segment_routing_mpls:
+    enabled: True

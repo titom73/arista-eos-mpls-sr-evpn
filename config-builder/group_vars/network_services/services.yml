@@ -1,0 +1,32 @@
+tenants:
+  # Definition of tenants. Additional level of abstraction to VRFs
+  - name: SVC01
+    mac_vrf_vni_base: 10000
+    vrfs:
+      # VRF definitions inside the tenant.
+      - name: SVC01_VRF01
+        # VRF ID definition.
+        vrf_id: 10
+        # Select address families for the VRF.
+        address_families:
+          - evpn
+          # - vpn-ipv4
+        vtep_diagnostic:
+          loopback: 1810
+          loopback_description: Test loopback
+          loopback_ip_range: 10.18.0.0/24
+        svis:
+          - id: 1811
+            name: SVC01_C1_VLAN_FIREWALL
+            enabled: True
+            ip_address_virtual: 10.18.11.1/24
+        l3_interfaces:
+          # L3 interfaces
+          - interfaces: [ Ethernet4.10, Ethernet4.10 ]
+            nodes: [ s1-pe03, s1-pe04 ]
+            description: C1_L3_SERVICE
+            enabled: true
+            ip_addresses: [ 10.0.1.1/29, 10.0.1.2/29]
+            # Enable OSPF on the interfaces.
+            ospf:
+              enabled: true
