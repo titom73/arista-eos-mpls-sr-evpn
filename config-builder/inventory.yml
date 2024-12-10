@@ -17,89 +17,45 @@ all:
     ansible_become: yes
     ansible_become_method: enable
   children:
-    ceos:
+    cpe:
       hosts:
         s1-ce01:
           ansible_host: 192.168.2.211
-          rid: 1.0.0.211
         s1-ce02:
           ansible_host: 192.168.2.212
-          rid: 1.0.0.212
-        s1-p01:
-          ansible_host: 192.168.2.111
-          rid: 1.0.0.111
-          node_segment:
-        s1-p02:
-          ansible_host: 192.168.2.112
-          rid: 1.0.0.112
-        s1-pe01:
-          ansible_host: 192.168.2.11
-          rid: 1.0.0.11
-        s1-pe02:
-          ansible_host: 192.168.2.12
-          rid: 1.0.0.12
-        s1-pe03:
-          ansible_host: 192.168.2.13
-          rid: 1.0.0.13
-        s1-pe04:
-          ansible_host: 192.168.2.14
-          rid: 1.0.0.14
+        s1-ce03:
+          ansible_host: 192.168.2.213
         s2-ce01:
           ansible_host: 192.168.2.221
-          rid: 1.0.0.221
-        s2-p01:
-          ansible_host: 192.168.2.121
-          rid: 1.0.0.121
-        s2-p02:
-          ansible_host: 192.168.2.122
-          rid: 1.0.0.122
-        s2-pe01:
-          ansible_host: 192.168.2.21
-          rid: 1.0.0.21
 
-    core:
-      hosts:
-        s1-p01:
-        s1-p02:
-        s1-pe01:
-        s1-pe02:
-        s1-pe03:
-        s1-pe04:
-        s2-p01:
-        s2-p02:
-        s2-pe01:
-
-    rr:
-      hosts:
-        s1-p01:
-        s2-p01:
-
-    pe-nodes:
-      hosts:
-        # s1-p02:
-        s1-pe01:
-        s1-pe02:
-        s1-pe03:
-        s1-pe04:
-        # s2-p02:
-        s2-pe01:
-
-    s1-pe:
-      hosts:
-        s1-pe01:
-        s1-pe02:
-        s1-pe03:
-        s1-pe04:
-
-    site01:
-      hosts:
-        s1-p01:
-        s1-p02:
-        s1-pe01:
-        s1-pe02:
-        s1-pe03:
-        s1-pe04:
-        s2-p01:
-        s2-p02:
-        s2-pe01:
-
+    backbone:
+      children:
+        backbone_p_routers:
+          vars:
+            type: "p"
+          hosts:
+            s1-p01:
+              ansible_host: 192.168.2.111
+            s1-p02:
+              ansible_host: 192.168.2.112
+            s2-p01:
+              ansible_host: 192.168.2.121
+            s2-p02:
+              ansible_host: 192.168.2.122
+        backbone_pe_routers:
+          vars:
+            type: "pe"
+          hosts:
+            s1-pe01:
+              ansible_host: 192.168.2.11
+            s1-pe02:
+              ansible_host: 192.168.2.12
+            s1-pe03:
+              ansible_host: 192.168.2.13
+            s1-pe04:
+              ansible_host: 192.168.2.14
+            s2-pe01:
+              ansible_host: 192.168.2.21
+        network_services:
+          children:
+            backbone_pe_routers:

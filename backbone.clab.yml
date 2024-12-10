@@ -93,6 +93,13 @@ topology:
       # startup-config:
       env:
         TMODE: lacp
+    s1-ce03:
+      kind: ceos
+      mgmt-ipv4: 192.168.2.213
+      startup-config: config-builder/intended/configs/s1-ce03.cfg
+      # startup-config:
+      env:
+        TMODE: lacp
 
   # -------------------------------- #
   # Site 2 CE
@@ -132,7 +139,7 @@ topology:
     - endpoints: ["s1-ce01:eth2", "s1-pe02:eth4"]
 
     - endpoints: ["s1-ce02:eth1", "s1-pe03:eth4"]
-    - endpoints: ["s1-ce02:eth2", "s1-pe04:eth4"]
+    - endpoints: ["s1-ce03:eth1", "s1-pe04:eth4"]
 
   # Site 2 PE
     - endpoints: ["s2-pe01:eth1", "s2-p01:eth1"]
