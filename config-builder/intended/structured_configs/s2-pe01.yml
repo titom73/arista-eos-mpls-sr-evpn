@@ -204,6 +204,17 @@ ethernet_interfaces:
   mpls:
     ip: true
   description: P2P_s2-p02_Ethernet1
+- name: Ethernet3
+  peer: s2-ce01
+  peer_interface: eth1
+  peer_type: router
+  description: ROUTER_s2-ce01_eth1
+  shutdown: false
+  switchport:
+    enabled: true
+    mode: trunk
+    trunk:
+      allowed_vlan: '1018'
 vlans:
 - id: 1811
   name: SVC01_C1_VLAN_FIREWALL

@@ -1,0 +1,42 @@
+---
+# Definition of connected endpoints in the fabric.
+routers:
+  - name: s1-ce01
+    adapters:
+      - endpoint_ports: [ eth1 ]
+        switch_ports: [ Ethernet4 ]
+        switches: [ s1-pe01 ]
+        vlans: 1018
+        mode: trunk
+
+  - name: s1-ce02
+    adapters:
+      - endpoint_ports: [ eth1 ]
+        switch_ports: [ Ethernet4 ]
+        switches: [ s1-pe02 ]
+        vlans: 1018
+        mode: trunk
+
+  - name: s1-ce03
+    adapters:
+      - endpoint_ports: [ eth1 ]
+        switch_ports: [ Ethernet4 ]
+        switches: [ s1-pe03 ]
+        vlans: 1018
+        mode: trunk
+
+  - name: s1-ce04
+    adapters:
+      - endpoint_ports: [ eth1 ]
+        switch_ports: [ Ethernet4 ]
+        switches: [ s1-pe04 ]
+        vlans: 1018
+        mode: trunk
+
+  - name: s2-ce01
+    adapters:
+      - endpoint_ports: [ eth1 ]
+        switch_ports: [ Ethernet3 ]
+        switches: [ s2-pe01 ]
+        vlans: 1018
+        mode: trunk

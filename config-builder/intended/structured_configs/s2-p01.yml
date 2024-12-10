@@ -150,3 +150,8 @@ ethernet_interfaces:
   description: P2P_s2-p02_Ethernet5
 metadata:
   platform: cEOS-lab
+router_bgp:
+  address_family_evpn:
+    neighbor_default:
+      encapsulation: mpls
+      next_hop_self_source_interface: Loopback0

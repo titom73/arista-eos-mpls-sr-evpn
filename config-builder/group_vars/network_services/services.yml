@@ -20,13 +20,13 @@ tenants:
             name: SVC01_C1_VLAN_FIREWALL
             enabled: True
             ip_address_virtual: 10.18.11.1/24
-        l3_interfaces:
-          # L3 interfaces
-          - interfaces: [ Ethernet4.10, Ethernet4.10 ]
-            nodes: [ s1-pe03, s1-pe04 ]
-            description: C1_L3_SERVICE
-            enabled: true
-            ip_addresses: [ 10.0.1.1/29, 10.0.1.2/29]
-            # Enable OSPF on the interfaces.
-            ospf:
-              enabled: true
+        # l3_interfaces:
+        #   # L3 interfaces
+        #   - interfaces: [ Ethernet4.10, Ethernet4.10 ]
+        #     nodes: [ s1-pe03, s1-pe04 ]
+        #     description: C1_L3_SERVICE
+        #     enabled: true
+        #     ip_addresses: [ 10.0.1.1/29, 10.0.1.2/29]
+        #     # Enable OSPF on the interfaces.
+        #     ospf:
+        #       enabled: true

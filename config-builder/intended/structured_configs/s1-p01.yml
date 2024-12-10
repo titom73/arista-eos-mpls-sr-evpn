@@ -32,6 +32,9 @@ router_bgp:
     peer_groups:
     - name: EVPN-OVERLAY-PEERS
       activate: true
+    neighbor_default:
+      encapsulation: mpls
+      next_hop_self_source_interface: Loopback0
   address_family_ipv4:
     peer_groups:
     - name: EVPN-OVERLAY-PEERS

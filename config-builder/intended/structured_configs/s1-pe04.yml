@@ -204,19 +204,17 @@ ethernet_interfaces:
   mpls:
     ip: true
   description: P2P_s1-p02_Ethernet4
-- name: Ethernet4.10
-  peer_type: l3_interface
-  ip_address: 10.0.1.2/29
-  shutdown: false
-  description: C1_L3_SERVICE
-  encapsulation_dot1q:
-    vlan: 10
-  vrf: SVC01_VRF01
 - name: Ethernet4
-  switchport:
-    enabled: false
-  peer_type: l3_interface
+  peer: s1-ce04
+  peer_interface: eth1
+  peer_type: router
+  description: ROUTER_s1-ce04_eth1
   shutdown: false
+  switchport:
+    enabled: true
+    mode: trunk
+    trunk:
+      allowed_vlan: '1018'
 vlans:
 - id: 1811
   name: SVC01_C1_VLAN_FIREWALL

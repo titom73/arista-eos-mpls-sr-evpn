@@ -12,6 +12,11 @@ bgp_peer_groups:
 
 p2p_uplinks_mtu: 1500
 
+custom_core_router_bgp:
+  address_family_evpn:
+    neighbor_default:
+      encapsulation: "mpls"
+      next_hop_self_source_interface: Loopback0
 
 custom_core_router_isis:
   advertise:
