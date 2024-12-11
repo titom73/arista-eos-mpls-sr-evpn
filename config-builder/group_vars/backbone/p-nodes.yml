@@ -2,10 +2,10 @@ p:
   defaults:
     platform: cEOS-lab
     loopback_ipv4_pool: 10.255.0.0/27
-    # mpls_route_reflectors: [ s1-p01, s2-p02]
+    mpls_route_reflectors: [ s1-p01, s2-p02]
     # mpls_overlay_role: server
-    overlay_address_families:
-      - "evpn"
+    # overlay_address_families:
+    #   - "evpn"
 
   nodes:
     - name: s1-p01
@@ -13,6 +13,8 @@ p:
       mgmt_ip: 192.168.2.111/24
       mpls_overlay_role: server
       evpn_role: server
+      overlay_address_families:
+        - "evpn"
     - name: s1-p02
       id: 1
       mgmt_ip: 192.168.2.112/24
@@ -24,3 +26,5 @@ p:
       mgmt_ip: 192.168.2.122/24
       evpn_role: server
       mpls_overlay_role: server
+      overlay_address_families:
+        - "evpn"

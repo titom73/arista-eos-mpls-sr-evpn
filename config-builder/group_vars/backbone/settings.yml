@@ -12,13 +12,31 @@ bgp_peer_groups:
 
 p2p_uplinks_mtu: 1500
 
+# Extension to get a fully configured
+# neighbor default encapsulation mpls next-hop-self source-interface Loopback0
+# If not, only encapsulation mpls is configured with the key 'default_evpn_encapsulation: mpls'
 custom_core_router_bgp:
   address_family_evpn:
     neighbor_default:
       encapsulation: "mpls"
       next_hop_self_source_interface: Loopback0
 
+# ISIS SR configuration
+# Implement basic enforcements.
 custom_core_router_isis:
+  graceful_restart:
+    enabled: True
+  set_overload_bit:
+    # enabled: True
+    on_startup:
+      delay: 1800
+      wait_for_bgp:
+        enabled: True
+  spf_interval:
+    interval: 1
+    # interval_unit: "milliseconds"
+    wait_interval: 50
+    hold_interval: 100
   advertise:
     passive_only: True
   address_family_ipv4:
