@@ -143,6 +143,7 @@ router_isis:
     maximum_paths: 4
     fast_reroute_ti_lfa:
       mode: link-protection
+      level: level-2
   advertise:
     passive_only: true
   segment_routing_mpls:
@@ -150,9 +151,12 @@ router_isis:
     enabled: true
   graceful_restart:
     enabled: true
+  timers:
+    local_convergence:
+      protected_prefixes: true
+      delay: 10000
   set_overload_bit:
     on_startup:
-      delay: 1800
       wait_for_bgp:
         enabled: true
   spf_interval:

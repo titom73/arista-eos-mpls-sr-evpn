@@ -26,10 +26,15 @@ custom_core_router_bgp:
 custom_core_router_isis:
   graceful_restart:
     enabled: True
+  timers:
+    local_convergence:
+      protected_prefixes: True
+      delay: 10000
   set_overload_bit:
     # enabled: True
     on_startup:
-      delay: 1800
+      # If delay is set, it override the wait_for_bgp.
+      # delay: 1800
       wait_for_bgp:
         enabled: True
   spf_interval:
@@ -43,5 +48,8 @@ custom_core_router_isis:
     enabled: True
     fast_reroute_ti_lfa:
       mode: "link-protection"
+      level: "level-2"
   segment_routing_mpls:
     enabled: True
+    # Not yet supported
+    # adjacency-segment allocation sr-peers backup-eligible
