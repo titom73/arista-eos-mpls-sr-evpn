@@ -62,16 +62,16 @@ loopback_interfaces:
 - name: Loopback0
   description: ROUTER_ID
   shutdown: false
-  ip_address: 10.255.0.1/32
+  ip_address: 10.255.0.2/32
   isis_enable: CORE
   isis_passive: true
   node_segment:
-    ipv4_index: 1
+    ipv4_index: 2
 router_isis:
   instance: CORE
   log_adjacency_changes: true
-  net: 49.0001.0102.5500.0001.00
-  router_id: 10.255.0.1
+  net: 49.0001.0102.5500.0002.00
+  router_id: 10.255.0.2
   is_type: level-2
   address_family_ipv4:
     enabled: true
@@ -82,7 +82,7 @@ router_isis:
   advertise:
     passive_only: true
   segment_routing_mpls:
-    router_id: 10.255.0.1
+    router_id: 10.255.0.2
     enabled: true
   graceful_restart:
     enabled: true
