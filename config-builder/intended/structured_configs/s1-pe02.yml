@@ -40,31 +40,6 @@ router_bgp:
     peer_group: MPLS-OVERLAY-PEERS
     peer: s2-p02
     description: s2-p02_Loopback0
-  vrfs:
-  - name: SVC01_VRF01
-    rd: 10.255.1.2:10
-    route_targets:
-      import:
-      - address_family: evpn
-        route_targets:
-        - '10:10'
-      export:
-      - address_family: evpn
-        route_targets:
-        - '10:10'
-    router_id: 10.255.1.2
-    redistribute:
-      connected:
-        enabled: true
-  vlans:
-  - id: 1811
-    tenant: SVC01
-    rd: 10.255.1.2:11811
-    route_targets:
-      both:
-      - 11811:11811
-    redistribute_routes:
-    - learned
   as_notation: asdot
 static_routes:
 - vrf: MGMT
@@ -112,9 +87,6 @@ clock:
 vrfs:
 - name: MGMT
   ip_routing: false
-- name: SVC01_VRF01
-  tenant: SVC01
-  ip_routing: true
 management_interfaces:
 - name: Management0
   description: OOB_MANAGEMENT
@@ -136,11 +108,6 @@ loopback_interfaces:
   isis_passive: true
   node_segment:
     ipv4_index: 2
-- name: Loopback1810
-  description: Test loopback
-  shutdown: false
-  vrf: SVC01_VRF01
-  ip_address: 10.18.0.2/32
 router_isis:
   instance: CORE
   log_adjacency_changes: true
@@ -234,20 +201,9 @@ ethernet_interfaces:
     enabled: true
     mode: trunk
     trunk:
-      allowed_vlan: '1018'
-vlans:
-- id: 1811
-  name: SVC01_C1_VLAN_FIREWALL
-  tenant: SVC01
+      allowed_vlan: 1-4094
 ip_igmp_snooping:
   globally_enabled: true
 ip_virtual_router_mac_address: 00:1c:73:00:dc:00
-vlan_interfaces:
-- name: Vlan1811
-  tenant: SVC01
-  description: SVC01_C1_VLAN_FIREWALL
-  shutdown: false
-  ip_address_virtual: 10.18.11.1/24
-  vrf: SVC01_VRF01
 metadata:
   platform: cEOS-lab

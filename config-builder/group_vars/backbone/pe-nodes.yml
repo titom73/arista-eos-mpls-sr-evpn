@@ -22,18 +22,28 @@ pe:
       nodes:
         - name: s1-pe01
           id: 1
+          filter:
+            tags: [ 'site01', 'north', 'multihome', 'node01']
           mgmt_ip: 192.168.2.11/24
         - name: s1-pe02
           id: 2
+          filter:
+            tags: [ 'site01', 'north', 'multihome', 'node02']
           mgmt_ip: 192.168.2.12/24
 
   nodes:
     - name: s1-pe03
       id: 3
+      filter:
+        tags: [ 'site01', 'south', 'node03']
       mgmt_ip: 192.168.2.13/24
     - name: s1-pe04
       id: 4
+      filter:
+        tags: [ 'site01', 'south', 'node04']
       mgmt_ip: 192.168.2.14/24
     - name: s2-pe01
       id: 5
+      filter:
+        tags: [ 'site02', 'south', 'north']
       mgmt_ip: 192.168.2.21/24

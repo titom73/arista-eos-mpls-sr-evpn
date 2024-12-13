@@ -6,7 +6,7 @@ routers:
       - endpoint_ports: [ eth1 ]
         switch_ports: [ Ethernet4 ]
         switches: [ s1-pe01 ]
-        vlans: 1018
+        vlans: "1-4094"
         mode: trunk
 
   - name: s1-ce02
@@ -14,7 +14,7 @@ routers:
       - endpoint_ports: [ eth1 ]
         switch_ports: [ Ethernet4 ]
         switches: [ s1-pe02 ]
-        vlans: 1018
+        vlans: "1-4094"
         mode: trunk
 
   - name: s1-ce03
@@ -22,7 +22,7 @@ routers:
       - endpoint_ports: [ eth1 ]
         switch_ports: [ Ethernet4 ]
         switches: [ s1-pe03 ]
-        vlans: 1018
+        vlans: "1-4094"
         mode: trunk
 
   - name: s1-ce04
@@ -30,7 +30,7 @@ routers:
       - endpoint_ports: [ eth1 ]
         switch_ports: [ Ethernet4 ]
         switches: [ s1-pe04 ]
-        vlans: 1018
+        vlans: "1-4094"
         mode: trunk
 
   - name: s2-ce01
@@ -38,5 +38,5 @@ routers:
       - endpoint_ports: [ eth1 ]
         switch_ports: [ Ethernet3 ]
         switches: [ s2-pe01 ]
-        vlans: 1018
+        vlans: "1-4094"
         mode: trunk

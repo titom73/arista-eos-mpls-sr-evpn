@@ -11,9 +11,7 @@ management_interfaces:
 
 # Static routes within Management VRF
 static_routes:
-  - vrf: "{{ management_vrf_name }}"
-    destination_address_prefix: 0.0.0.0/0
-    gateway: 192.168.2.1
+
 
 service_routing_protocols_model: multi-agent
 ip_routing: true
@@ -22,4 +20,6 @@ vrfs:
   - name: default
     ip_routing: true
   - name: "{{ management_vrf_name }}"
+    ip_routing: true
+  - name: 'ETHERNET_VPN'
     ip_routing: true

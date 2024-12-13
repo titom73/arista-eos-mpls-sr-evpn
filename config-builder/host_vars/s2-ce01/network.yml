@@ -1,45 +1,23 @@
 vlans:
-  - id: 1810
-    name: "S1-FW-XCO"
-    tenant: "FW-HA"
-  - id: 2001
-    name: "BKP-SITE01"
-    tenant: "BKP"
-
-vrfs:
-  - name: FW-HA
-    description: FW-HA VRF
-    ip_routing: True
-  - name: BKP
-    description: BACKUP VRF
-    ip_routing: True
+  - name: SVC01_C1_VLAN_SITE02_PE01
+    id: 1015
 
 ethernet_interfaces:
-- name: Ethernet1
-  peer: s1-pe01
-  channel_group:
-    id: 1
-    mode: "active"
-- name: Ethernet2
-  peer: s1-pe02
-  channel_group:
-    id: 1
-    mode: "active"
+  - name: Ethernet1
+    description: to s2-pe01 ethernet4
+    vlans: "1-4094"
+    # FIXME: Generate a warning during the build process
+    mode: "trunk"
+
 
 port_channel_interfaces:
-- name: Port-Channel1
-  description: to s1-pe01 - firewall test - vrrp
-  switchport:
-    mode: trunk
-    trunk:
-      allowed_vlan: 1018,2001
 
 vlan_interfaces:
-# - name: "Vlan1810"
-#   description: vrf-FW-HA-xco-firewall-site01
-#   shutdown: False
-#   vrf: FW-HA
-#   ip_address: "10.18.10.{{ device_id }}/24"
+- name: "Vlan1015"
+  description: SVC01_C1_VLAN_SITE02_PE01 - VRF ETHERNET_VPN
+  shutdown: False
+  vrf: ETHERNET_VPN
+  ip_address: "10.1.5.{{ device_id }}/24"
 #   vrrp_ids:
 #     - id: 10
 #       priority_level: 100
@@ -54,14 +32,9 @@ vlan_interfaces:
 #   ip_address: "10.200.1.{{ device_id }}/24"
 
 static_routes:
-  - vrf: FW-HA
-    destination_address_prefix: 0.0.0.0/0
-    gateway: 10.18.10.1
-
-  - vrf: BKP
-    destination_address_prefix: 0.0.0.0/0
-    gateway: 10.200.1.1
-
-  - vrf: default
+  - vrf: "{{ management_vrf_name }}"
     destination_address_prefix: 0.0.0.0/0
     gateway: 192.168.2.1
+  - vrf: ETHERNET_VPN
+    destination_address_prefix: 0.0.0.0/0
+    gateway: 10.1.5.1

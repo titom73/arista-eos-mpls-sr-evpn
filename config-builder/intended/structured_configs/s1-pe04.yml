@@ -41,28 +41,28 @@ router_bgp:
     peer: s2-p02
     description: s2-p02_Loopback0
   vrfs:
-  - name: SVC01_VRF01
-    rd: 10.255.1.4:10
+  - name: ETHERNET_VPN
+    rd: 10.255.1.4:11
     route_targets:
       import:
       - address_family: evpn
         route_targets:
-        - '10:10'
+        - '11:11'
       export:
       - address_family: evpn
         route_targets:
-        - '10:10'
+        - '11:11'
     router_id: 10.255.1.4
     redistribute:
       connected:
         enabled: true
   vlans:
-  - id: 1811
-    tenant: SVC01
-    rd: 10.255.1.4:11811
+  - id: 1014
+    tenant: SVC_ETHERNET
+    rd: 10.255.1.4:11014
     route_targets:
       both:
-      - 11811:11811
+      - 11014:11014
     redistribute_routes:
     - learned
   as_notation: asdot
@@ -112,8 +112,8 @@ clock:
 vrfs:
 - name: MGMT
   ip_routing: false
-- name: SVC01_VRF01
-  tenant: SVC01
+- name: ETHERNET_VPN
+  tenant: SVC_ETHERNET
   ip_routing: true
 management_interfaces:
 - name: Management0
@@ -136,11 +136,11 @@ loopback_interfaces:
   isis_passive: true
   node_segment:
     ipv4_index: 4
-- name: Loopback1810
-  description: Test loopback
+- name: Loopback1001
+  description: SVC_ETHERNET_LOOPBACK
   shutdown: false
-  vrf: SVC01_VRF01
-  ip_address: 10.18.0.4/32
+  vrf: ETHERNET_VPN
+  ip_address: 10.1.255.4/32
 router_isis:
   instance: CORE
   log_adjacency_changes: true
@@ -234,20 +234,22 @@ ethernet_interfaces:
     enabled: true
     mode: trunk
     trunk:
-      allowed_vlan: '1018'
+      allowed_vlan: 1-4094
 vlans:
-- id: 1811
-  name: SVC01_C1_VLAN_FIREWALL
-  tenant: SVC01
+- id: 1014
+  name: SVC01_C1_VLAN_SITE01_PE04
+  tenant: SVC_ETHERNET
 ip_igmp_snooping:
   globally_enabled: true
 ip_virtual_router_mac_address: 00:1c:73:00:dc:00
 vlan_interfaces:
-- name: Vlan1811
-  tenant: SVC01
-  description: SVC01_C1_VLAN_FIREWALL
+- name: Vlan1014
+  tenant: SVC_ETHERNET
+  tags:
+  - node04
+  description: SVC01_C1_VLAN_SITE01_PE04
   shutdown: false
-  ip_address_virtual: 10.18.11.1/24
-  vrf: SVC01_VRF01
+  ip_address_virtual: 10.1.4.1/24
+  vrf: ETHERNET_VPN
 metadata:
   platform: cEOS-lab
