@@ -3,7 +3,7 @@ fabric_name: backbone
 underlay_routing_protocol: isis-sr
 overlay_routing_protocol: ibgp
 
-bgp_as: 65001
+bgp_as: "73.1"
 
 bgp_peer_groups:
   mpls_overlay_peers:
@@ -12,10 +12,12 @@ bgp_peer_groups:
 
 p2p_uplinks_mtu: 1500
 
+# FIXME: This is a temporary solution to avoid the issue with the
 # Extension to get a fully configured
 # neighbor default encapsulation mpls next-hop-self source-interface Loopback0
 # If not, only encapsulation mpls is configured with the key 'default_evpn_encapsulation: mpls'
 custom_core_router_bgp:
+  as_notation: "asdot"
   address_family_evpn:
     neighbor_default:
       encapsulation: "mpls"
