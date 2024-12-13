@@ -191,17 +191,6 @@ ethernet_interfaces:
   mpls:
     ip: true
   description: P2P_s1-p02_Ethernet2
-- name: Ethernet4
-  peer: s1-ce02
-  peer_interface: eth1
-  peer_type: router
-  description: ROUTER_s1-ce02_eth1
-  shutdown: false
-  switchport:
-    enabled: true
-    mode: trunk
-    trunk:
-      allowed_vlan: 1-4094
 ip_igmp_snooping:
   globally_enabled: true
 ip_virtual_router_mac_address: 00:1c:73:00:dc:00
