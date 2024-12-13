@@ -232,6 +232,7 @@ ethernet_interfaces:
 metadata:
   platform: cEOS-lab
 router_bgp:
+  as_notation: asdot
   address_family_evpn:
     neighbor_default:
       encapsulation: mpls

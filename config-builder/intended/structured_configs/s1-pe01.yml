@@ -1,7 +1,7 @@
 hostname: s1-pe01
 is_deployed: true
 router_bgp:
-  as: '65001'
+  as: '73.1'
   router_id: 10.255.1.1
   bgp:
     default:
@@ -19,7 +19,7 @@ router_bgp:
     password: Q4fqtbqcZ7oQuKfuWtNGRQ==
     send_community: all
     maximum_routes: 0
-    remote_as: '65001'
+    remote_as: '73.1'
   address_family_evpn:
     neighbor_default:
       encapsulation: mpls
@@ -65,6 +65,7 @@ router_bgp:
       - 11811:11811
     redistribute_routes:
     - learned
+  as_notation: asdot
 service_routing_protocols_model: multi-agent
 ip_routing: true
 vlan_internal_order:
