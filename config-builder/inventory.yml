@@ -1,23 +1,9 @@
 all:
-  vars:
-    # The generated inventory is assumed to be used from the clab host.
-    # Hence no http proxy should be used. Therefore we make sure the http
-    # module does not attempt using any global http proxy.
-    # ansible_httpapi_use_proxy: false
-    ansible_connection: httpapi
-    ansible_port: '{{ansible_httpapi_port }}'
-    ansible_httpapi_host: '{{ ansible_host }}'
-    ansible_httpapi_use_ssl: true
-    ansible_httpapi_validate_certs: false
-    ansible_httpapi_port: 443
-
-    ansible_network_os: eos
-    ansible_user: ansible
-    ansible_password: ansible
-    ansible_become: yes
-    ansible_become_method: enable
   children:
     cpe:
+    # Group for the CPE devices in MPLS environment.
+    # Provide network services endpoint.
+    # They are not managed with eos_designs. Only eos_cli_config_gen.
       hosts:
         s1-ce01:
           ansible_host: 192.168.2.211

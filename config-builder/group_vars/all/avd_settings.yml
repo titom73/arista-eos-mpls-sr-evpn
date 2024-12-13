@@ -1,0 +1,2 @@
+# Perform config backup before config replace
+eos_config_deploy_eapi_pre_running_config_backup: true

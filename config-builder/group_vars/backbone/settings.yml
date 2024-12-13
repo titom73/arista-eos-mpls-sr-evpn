@@ -1,16 +1,29 @@
-fabric_name: backbone
+fabric_name: "backbone"
 
-underlay_routing_protocol: isis-sr
-overlay_routing_protocol: ibgp
+# OOB Management VRF.
+mgmt_interface_vrf: "{{ management_vrf_name }}"
+mgmt_gateway: "192.168.2.1"
+# OOB Management interface.
+mgmt_interface: "Management0"
+# Configure IP routing for the OOB Management VRF.
+mgmt_vrf_routing: False
+mgmt_destination_networks:
+  - 10.73.0.0/16
 
-bgp_as: "73.1"
+# Backbone routing protocols
+underlay_routing_protocol: "isis-sr"
+overlay_routing_protocol: "ibgp"
+
+# interface MTU. Configure to 1500 for cEOS-lab
+p2p_uplinks_mtu: 1500
+
+# BGP AS number for Backbone control plane
+bgp_as: "65000"
 
 bgp_peer_groups:
   mpls_overlay_peers:
     # password: arista
-    password: Q4fqtbqcZ7oQuKfuWtNGRQ==
-
-p2p_uplinks_mtu: 1500
+    password: "Q4fqtbqcZ7oQuKfuWtNGRQ=="
 
 # FIXME: This is a temporary solution to avoid the issue with the
 # Extension to get a fully configured
@@ -21,7 +34,7 @@ custom_core_router_bgp:
   address_family_evpn:
     neighbor_default:
       encapsulation: "mpls"
-      next_hop_self_source_interface: Loopback0
+      next_hop_self_source_interface: "Loopback0"
 
 # ISIS SR configuration
 # Implement basic enforcements.

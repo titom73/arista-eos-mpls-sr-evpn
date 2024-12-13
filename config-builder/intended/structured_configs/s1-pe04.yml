@@ -1,7 +1,7 @@
 hostname: s1-pe04
 is_deployed: true
 router_bgp:
-  as: '73.1'
+  as: '65000'
   router_id: 10.255.1.4
   bgp:
     default:
@@ -19,7 +19,7 @@ router_bgp:
     password: Q4fqtbqcZ7oQuKfuWtNGRQ==
     send_community: all
     maximum_routes: 0
-    remote_as: '73.1'
+    remote_as: '65000'
   address_family_evpn:
     neighbor_default:
       encapsulation: mpls
@@ -66,6 +66,10 @@ router_bgp:
     redistribute_routes:
     - learned
   as_notation: asdot
+static_routes:
+- vrf: MGMT
+  destination_address_prefix: 10.73.0.0/16
+  gateway: 192.168.2.1
 service_routing_protocols_model: multi-agent
 ip_routing: true
 vlan_internal_order:
@@ -112,12 +116,12 @@ vrfs:
   tenant: SVC01
   ip_routing: true
 management_interfaces:
-- name: Management1
+- name: Management0
   description: OOB_MANAGEMENT
   shutdown: false
   vrf: MGMT
   ip_address: 192.168.2.14/24
-  gateway: null
+  gateway: 192.168.2.1
   type: oob
 management_api_http:
   enable_vrfs:
