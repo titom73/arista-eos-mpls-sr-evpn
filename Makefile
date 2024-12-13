@@ -4,4 +4,20 @@ help: ## Display help message
 
 .PHONY: base
 base: ## Load a base part of the lab.
-	sudo containerlab deploy --node-filters s1-pe03,s1-pe04,s1-p01,s1-p02,s1-ce03,s1-ce04
+	sudo containerlab deploy --node-filter s1-pe03,s1-pe04,s1-p01,s1-p02,s1-ce03,s1-ce04
+
+.PHONY: small-sh
+small-sh: ## Load a base part of the lab. Single homed devices oriented.
+	sudo containerlab deploy --node-filter s1-pe03,s1-pe04,s1-p01,s1-ce03,s1-ce04
+
+.PHONY: small-mh
+small-mh: ## Load a base part of the lab. Multi homed devices oriented.
+	sudo containerlab deploy --node-filter s1-pe03,s1-pe01,s1-pe02,s1-p01,s1-ce01,s1-ce03,
+
+.PHONY: large
+base: ## Load a base part of the lab.
+	sudo containerlab deploy --reconfigure
+
+PHONY: down
+down: ## Stop and remove the lab
+	sudo containerlab destroy -c
