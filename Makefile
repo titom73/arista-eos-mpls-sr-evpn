@@ -20,7 +20,7 @@ small-sh: ## Load a base part of the lab. Single homed devices oriented.
 
 .PHONY: small-mh
 small-mh: ## Load a base part of the lab. Multi homed devices oriented.
-	sudo containerlab deploy --node-filter s1-pe03,s1-pe01,s1-pe02,s1-p01,s1-ce01,s1-ce03,
+	sudo containerlab deploy --node-filter s1-pe03,s1-pe01,s1-pe02,s1-p01,s1-ce01,s1-ce03
 
 .PHONY: large
 base: ## Load a base part of the lab.

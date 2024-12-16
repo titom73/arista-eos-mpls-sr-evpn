@@ -46,7 +46,7 @@ ardl get eos --image-type cEOS --version 4.31.0F --import-docker
 
 > eos-downloader configuration is availble in [this repo](https://github.com/titom73/eos-downloader)
 
-### Create Topology
+### Start Topology
 
 ```bash
 sudo containerlab deploy --reconfigure
@@ -58,11 +58,13 @@ To start topology with a specific version:
 EOS_VERSION=<your eos version>; sudo containerlab deploy --reconfigure
 ```
 
-### Save running configuration
+### Start a subset of the topology
 
-```bash
-sudo containerlab save
-```
+Makefile gives options to start only few routers to run a subset of the backbone and limit host resources.
+
+- `base`       Load a base part of the lab - `s1-pe03, s1-pe04, s1-p01, s1-p02, s1-ce03, s1-ce04`
+- `small-mh`   Load a base part of the lab. Multi homed devices oriented - `s1-pe03, s1-pe01, s1-pe02, s1-p01, s1-ce01, s1-ce03`
+- `small-sh`   Load a base part of the lab. Single homed devices oriented - `s1-pe03, s1-pe04, s1-p01, s1-ce03, s1-ce04`
 
 ### Configuration management
 
