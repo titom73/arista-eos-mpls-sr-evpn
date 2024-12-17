@@ -47,8 +47,12 @@ tenants:
           - id: 1205
             name: L3VPN-EXIT-POINT
             enabled: True
-            ip_address_virtual: 10.2.1.1/24
+            ip_address: 10.2.1.1/24
             tags: ['site02']
+            ospf:
+              enabled: True
+              point_to_point: True
+              area: 0.0.0.0
         l3_interfaces:
           # L3 interfaces
           - interfaces: [ Ethernet5.101, Ethernet5.101 ]
@@ -56,6 +60,12 @@ tenants:
             description: L3VPN Only USE CASE
             enabled: true
             ip_addresses: [ 10.2.0.0/31, 10.2.0.2/31]
+        ospf:
+          enabled: True
+          process_id: 1205
+          redistribute_bgp:
+            enabled: True
+            route_map: RM-BGP-TO-OSPF
         bgp_peers:
           - ip_address: 10.2.0.1
             peer_group: ATM-BACKBONE
@@ -67,21 +77,19 @@ tenants:
             description: ATM CONNECTITVITY S1-CE04
             remote_as: 65101
             nodes: [ s1-pe04 ]
-          - ip_address: 10.2.1.21
-            peer_group: ATM-BACKBONE
-            description: ATM CONNECTITVITY S2-CE01
-            remote_as: 65102
-            nodes: [ s2-pe01 ]
+          # - ip_address: 10.2.1.21
+          #   peer_group: ATM-BACKBONE
+          #   description: ATM CONNECTITVITY S2-CE01
+          #   remote_as: 65102
+          #   nodes: [ s2-pe01 ]
         bgp_peer_groups:
           - name: ATM-BACKBONE
             nodes:
               - s1-pe03
               - s1-pe04
-              - s2-pe01
+              # - s2-pe01
             address_family_ipv4:
               activate: True
-              # route_map_in:
-              # route_map_out:
             description: ATM CONNECTITVITY
             shutdown: False
             bfd: False

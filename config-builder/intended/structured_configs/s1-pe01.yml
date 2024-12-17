@@ -209,6 +209,15 @@ ip_community_lists:
     communities:
     - 65000:10110
 route_maps:
+- name: RM-BGP-TO-OSPF
+  sequence_numbers:
+  - sequence: 10
+    type: permit
+    description: Redistribute BGP to OSPF
+    match:
+    - ip address prefix-list PL-ATM-FAKE-PREFIX
+    set:
+    - tag 1205
 - name: RM-MANAGE-WITH-COMMUNITIES
   sequence_numbers:
   - sequence: 10

@@ -19,10 +19,6 @@ router_bgp:
     maximum_routes: 0
     remote_as: '65000'
     route_map_in: RM-MANAGE-WITH-COMMUNITIES
-  - name: ATM-BACKBONE
-    description: ATM CONNECTITVITY
-    shutdown: false
-    bfd: false
   address_family_evpn:
     neighbor_default:
       encapsulation: mpls
@@ -36,8 +32,6 @@ router_bgp:
     peer_groups:
     - name: MPLS-OVERLAY-PEERS
       activate: false
-    - name: ATM-BACKBONE
-      activate: true
   neighbors:
   - ip_address: 10.255.0.1
     peer_group: MPLS-OVERLAY-PEERS
@@ -63,15 +57,8 @@ router_bgp:
     redistribute:
       connected:
         enabled: true
-    address_family_ipv4:
-      neighbors:
-      - ip_address: 10.2.1.21
-        activate: true
-    neighbors:
-    - ip_address: 10.2.1.21
-      peer_group: ATM-BACKBONE
-      description: ATM CONNECTITVITY S2-CE01
-      remote_as: '65102'
+      ospf:
+        enabled: true
   - name: ETHERNET_VPN
     rd: 10.255.1.5:11
     route_targets:
@@ -299,8 +286,10 @@ vlan_interfaces:
   - site02
   description: L3VPN-EXIT-POINT
   shutdown: false
-  ip_address_virtual: 10.2.1.1/24
+  ip_address: 10.2.1.1/24
   vrf: ATM
+  ospf_area: 0.0.0.0
+  ospf_network_point_to_point: true
 - name: Vlan1115
   tenant: SVC_ETHERNET
   tags:
@@ -309,6 +298,18 @@ vlan_interfaces:
   shutdown: false
   ip_address_virtual: 10.1.5.1/24
   vrf: ETHERNET_VPN
+router_ospf:
+  process_ids:
+  - id: 1205
+    vrf: ATM
+    passive_interface_default: true
+    no_passive_interfaces:
+    - Vlan1205
+    router_id: 10.255.1.5
+    redistribute:
+      bgp:
+        enabled: true
+        route_map: RM-BGP-TO-OSPF
 metadata:
   platform: ceos
 ip_community_lists:
@@ -323,6 +324,15 @@ ip_community_lists:
     communities:
     - 65000:10110
 route_maps:
+- name: RM-BGP-TO-OSPF
+  sequence_numbers:
+  - sequence: 10
+    type: permit
+    description: Redistribute BGP to OSPF
+    match:
+    - ip address prefix-list PL-ATM-FAKE-PREFIX
+    set:
+    - tag 1205
 - name: RM-MANAGE-WITH-COMMUNITIES
   sequence_numbers:
   - sequence: 10

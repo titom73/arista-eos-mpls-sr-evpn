@@ -12,6 +12,17 @@ custom_atm_ip_community_lists:
           - 65000:10110
 
 custom_atm_route_maps:
+  - name: RM-BGP-TO-OSPF
+    sequence_numbers:
+      - sequence: 10
+        type: permit
+        description: Redistribute BGP to OSPF
+        match:
+          - "ip address prefix-list PL-ATM-FAKE-PREFIX"
+        set:
+          - "ospf bit dn"
+          - "tag 1205"
+
   - name: RM-MANAGE-WITH-COMMUNITIES
     sequence_numbers:
       - sequence: 10
