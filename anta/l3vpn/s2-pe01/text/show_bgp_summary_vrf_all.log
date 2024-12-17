@@ -1,0 +1,17 @@
+BGP summary information for VRF default
+Router identifier 10.255.1.5, local AS number 65000
+Neighbor            AS Session State AFI/SAFI                AFI/SAFI State   NLRI Rcd   NLRI Acc
+---------- ----------- ------------- ----------------------- -------------- ---------- ----------
+10.255.0.1       65000 Established   L2VPN EVPN              Negotiated             12          2
+10.255.0.4       65000 Active        L2VPN EVPN              Configured              0          0
+
+BGP summary information for VRF ATM
+Router identifier 10.255.1.5, local AS number 65000
+Neighbor           AS Session State AFI/SAFI                AFI/SAFI State   NLRI Rcd   NLRI Acc
+--------- ----------- ------------- ----------------------- -------------- ---------- ----------
+10.2.1.21       65102 Established   IPv4 Unicast            Negotiated              1          1
+
+BGP summary information for VRF ETHERNET_VPN
+Router identifier 10.255.1.5, local AS number 65000
+Neighbor          AS Session State AFI/SAFI                AFI/SAFI State   NLRI Rcd   NLRI Acc
+-------- ----------- ------------- ----------------------- -------------- ---------- ----------

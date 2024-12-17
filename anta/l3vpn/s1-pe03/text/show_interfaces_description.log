@@ -1,0 +1,10 @@
+Interface                      Status         Protocol           Description
+Et1                            up             up                 P2P_s1-p01_Ethernet3
+Et4                            up             up                 ROUTER_s1-ce03_eth1
+Et5                            up             up                 
+Et5.101                        up             up                 L3VPN Only USE CASE
+Lo0                            up             up                 ROUTER_ID
+Lo1011                         up             up                 SVC_ETHERNET_LOOPBACK
+Lo1012                         up             up                 SVC_ETHERNET_LOOPBACK
+Ma0                            up             up                 
+Vl1113                         up             up                 SVC01_C1_VLAN_SITE01_PE03

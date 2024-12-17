@@ -1,0 +1,6 @@
+Port       Name                  Status       Vlan     Duplex Speed  Type            Flags Encapsulation
+Et3        P2P_s1-pe03_Ethernet1 connected    routed   full   1G     EbraTestPhyPort                   
+Et4        P2P_s1-pe04_Ethernet1 connected    routed   full   1G     EbraTestPhyPort                   
+Et6        P2P_s2-p01_Ethernet6  connected    routed   full   1G     EbraTestPhyPort                   
+Ma0                              connected    routed   a-full a-1G   10/100/1000                       
+

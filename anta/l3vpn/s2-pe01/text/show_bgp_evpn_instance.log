@@ -1,0 +1,24 @@
+EVPN instance: VLAN 1115
+  Route distinguisher: 10.255.1.5:11115
+  Route target import: Route-Target-AS:11115:11115
+  Route target export: Route-Target-AS:11115:11115
+  Service interface: VLAN-based
+  Local MPLS IP address: 10.255.1.5
+  VXLAN: disabled
+  MPLS: enabled
+  Label allocation mode: per-instance
+  MAC route MPLS label: 1046284
+  IMET route MPLS label: 1043986
+  AD route MPLS label: 1046284
+EVPN instance: VLAN 1205
+  Route distinguisher: 10.255.1.5:13205
+  Route target import: Route-Target-AS:13205:13205
+  Route target export: Route-Target-AS:13205:13205
+  Service interface: VLAN-based
+  Local MPLS IP address: 10.255.1.5
+  VXLAN: disabled
+  MPLS: enabled
+  Label allocation mode: per-instance
+  MAC route MPLS label: 1047390
+  IMET route MPLS label: 1040999
+  AD route MPLS label: 1047390

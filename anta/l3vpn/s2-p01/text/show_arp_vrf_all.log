@@ -1,0 +1,9 @@
+
+VRF: MGMT
+Address         Age (sec)  Hardware Addr   Interface
+192.168.2.1       0:00:00  0242.6582.2a08  Management0
+
+VRF: default
+Address         Age (sec)  Hardware Addr   Interface
+10.255.3.16       1:15:14  aac1.abd1.ba12  Ethernet1
+10.255.3.20       1:15:23  aac1.ab2e.fde4  Ethernet6

@@ -1,0 +1,6 @@
+Interface                      Status         Protocol           Description
+Et3                            up             up                 P2P_s1-pe03_Ethernet1
+Et4                            up             up                 P2P_s1-pe04_Ethernet1
+Et6                            up             up                 P2P_s2-p01_Ethernet6
+Lo0                            up             up                 ROUTER_ID
+Ma0                            up             up                 

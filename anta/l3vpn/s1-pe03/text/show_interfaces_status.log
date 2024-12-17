@@ -1,0 +1,7 @@
+Port       Name                 Status       Vlan     Duplex Speed  Type                Flags Encapsulation
+Et1        P2P_s1-p01_Ethernet3 connected    routed   full   1G     EbraTestPhyPort                       
+Et4        ROUTER_s1-ce03_eth1  connected    trunk    full   1G     EbraTestPhyPort                       
+Et5                             connected    routed   full   1G     EbraTestPhyPort                       
+Et5.101    L3VPN Only USE CASE  connected    routed   full   1G     dot1q-encapsulation       101         
+Ma0                             connected    routed   a-full a-1G   10/100/1000                           
+

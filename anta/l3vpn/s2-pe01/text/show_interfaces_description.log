@@ -1,0 +1,9 @@
+Interface                      Status         Protocol           Description
+Et1                            up             up                 P2P_s2-p01_Ethernet1
+Et3                            up             up                 ROUTER_s2-ce01_eth1
+Lo0                            up             up                 ROUTER_ID
+Lo1011                         up             up                 SVC_ETHERNET_LOOPBACK
+Lo1012                         up             up                 SVC_ETHERNET_LOOPBACK
+Ma0                            up             up                 
+Vl1115                         up             up                 SVC01_C1_VLAN_SITE02_PE01
+Vl1205                         up             up                 L3VPN-EXIT-POINT

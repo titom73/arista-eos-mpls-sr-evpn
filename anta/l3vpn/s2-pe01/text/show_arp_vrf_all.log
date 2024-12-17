@@ -1,0 +1,16 @@
+
+VRF: ATM
+Address         Age (sec)  Hardware Addr   Interface
+10.2.1.21         0:01:21  001c.7388.8199  Vlan1205, Ethernet3
+
+VRF: ETHERNET_VPN
+Address         Age (sec)  Hardware Addr   Interface
+10.1.5.21         1:15:11  001c.7388.8199  Vlan1115, not learned
+
+VRF: MGMT
+Address         Age (sec)  Hardware Addr   Interface
+192.168.2.1       0:00:00  0242.6582.2a08  Management0
+
+VRF: default
+Address         Age (sec)  Hardware Addr   Interface
+10.255.3.17       0:00:35  aac1.ab71.977e  Ethernet1

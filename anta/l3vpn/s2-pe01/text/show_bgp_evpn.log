@@ -1,0 +1,50 @@
+BGP routing table information for VRF default
+Router identifier 10.255.1.5, local AS number 65000
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+                    c - Contributing to ECMP, % - Pending best path selection
+Origin codes: i - IGP, e - EGP, ? - incomplete
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  LocPref Weight  Path
+ * >      RD: 10.255.1.5:13205 mac-ip 001c.7388.8199
+                                 -                     -       -       0       i
+ * >      RD: 10.255.1.5:13205 mac-ip 001c.7388.8199 10.2.1.21
+                                 -                     -       -       0       i
+          RD: 10.255.1.3:11113 imet 10.255.1.3
+                                 PolicyReject          -       -       0       i Or-ID: 10.255.1.3 C-LST: 10.255.0.1 
+          RD: 10.255.1.4:11114 imet 10.255.1.4
+                                 PolicyReject          -       -       0       i Or-ID: 10.255.1.4 C-LST: 10.255.0.1 
+ * >      RD: 10.255.1.5:11115 imet 10.255.1.5
+                                 -                     -       -       0       i
+ * >      RD: 10.255.1.5:13205 imet 10.255.1.5
+                                 -                     -       -       0       i
+          RD: 10.255.1.3:11 ip-prefix 10.1.3.0/24
+                                 PolicyReject          -       -       0       i Or-ID: 10.255.1.3 C-LST: 10.255.0.1 
+          RD: 10.255.1.4:11 ip-prefix 10.1.4.0/24
+                                 PolicyReject          -       -       0       i Or-ID: 10.255.1.4 C-LST: 10.255.0.1 
+ * >      RD: 10.255.1.5:11 ip-prefix 10.1.5.0/24
+                                 -                     -       -       0       i
+          RD: 10.255.1.3:11 ip-prefix 10.1.255.3/32
+                                 PolicyReject          -       -       0       i Or-ID: 10.255.1.3 C-LST: 10.255.0.1 
+          RD: 10.255.1.4:11 ip-prefix 10.1.255.4/32
+                                 PolicyReject          -       -       0       i Or-ID: 10.255.1.4 C-LST: 10.255.0.1 
+ * >      RD: 10.255.1.5:11 ip-prefix 10.1.255.5/32
+                                 -                     -       -       0       i
+          RD: 10.255.1.3:12 ip-prefix 10.2.0.0/31
+                                 PolicyReject          -       -       0       i Or-ID: 10.255.1.3 C-LST: 10.255.0.1 
+          RD: 10.255.1.4:12 ip-prefix 10.2.0.2/31
+                                 PolicyReject          -       -       0       i Or-ID: 10.255.1.4 C-LST: 10.255.0.1 
+ * >      RD: 10.255.1.5:12 ip-prefix 10.2.1.0/24
+                                 -                     -       -       0       i
+ *        RD: 10.255.1.5:12 ip-prefix 10.2.1.0/24
+                                 -                     -       100     0       65102 i
+ * >      RD: 10.255.1.3:12 ip-prefix 10.2.254.0/24
+                                 10.255.1.3            -       90      0       65101 ? Or-ID: 10.255.1.3 C-LST: 10.255.0.1 
+ * >      RD: 10.255.1.4:12 ip-prefix 10.2.254.0/24
+                                 10.255.1.4            -       110     0       65101 ? Or-ID: 10.255.1.4 C-LST: 10.255.0.1 
+          RD: 10.255.1.3:12 ip-prefix 10.2.255.3/32
+                                 PolicyReject          -       -       0       i Or-ID: 10.255.1.3 C-LST: 10.255.0.1 
+          RD: 10.255.1.4:12 ip-prefix 10.2.255.4/32
+                                 PolicyReject          -       -       0       i Or-ID: 10.255.1.4 C-LST: 10.255.0.1 
+ * >      RD: 10.255.1.5:12 ip-prefix 10.2.255.5/32
+                                 -                     -       -       0       i
