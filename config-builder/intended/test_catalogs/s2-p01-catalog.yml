@@ -1,0 +1,88 @@
+anta.tests.connectivity:
+- VerifyLLDPNeighbors:
+    neighbors:
+    - neighbor_device: s2-pe01.atd.lab
+      neighbor_port: Ethernet1
+      port: Ethernet1
+    result_overwrite:
+      custom_field: 'Local: Ethernet1 - Remote: s2-pe01 Ethernet1'
+- VerifyLLDPNeighbors:
+    neighbors:
+    - neighbor_device: s1-p01.atd.lab
+      neighbor_port: Ethernet6
+      port: Ethernet6
+    result_overwrite:
+      custom_field: 'Local: Ethernet6 - Remote: s1-p01 Ethernet6'
+- VerifyLLDPNeighbors:
+    neighbors:
+    - neighbor_device: s2-p02.atd.lab
+      neighbor_port: Ethernet5
+      port: Ethernet5
+    result_overwrite:
+      custom_field: 'Local: Ethernet5 - Remote: s2-p02 Ethernet5'
+- VerifyReachability:
+    hosts:
+    - destination: 10.255.3.16
+      repeat: 1
+      source: 10.255.3.17
+      vrf: default
+    result_overwrite:
+      custom_field: 'Source: P2P Interface Ethernet1 (IP: 10.255.3.17) - Destination:
+        s2-pe01 Ethernet1 (IP: 10.255.3.16)'
+- VerifyReachability:
+    hosts:
+    - destination: 10.255.3.20
+      repeat: 1
+      source: 10.255.3.21
+      vrf: default
+    result_overwrite:
+      custom_field: 'Source: P2P Interface Ethernet6 (IP: 10.255.3.21) - Destination:
+        s1-p01 Ethernet6 (IP: 10.255.3.20)'
+anta.tests.hardware:
+- VerifyEnvironmentPower:
+    result_overwrite:
+      custom_field: 'Accepted States: ''ok'''
+    states:
+    - ok
+- VerifyEnvironmentCooling:
+    result_overwrite:
+      custom_field: 'Accepted States: ''ok'''
+    states:
+    - ok
+- VerifyTemperature: null
+- VerifyTransceiversManufacturers:
+    manufacturers:
+    - Arista Networks
+    - Arastra, Inc.
+    - Not Present
+    result_overwrite:
+      custom_field: 'Accepted Manufacturers: ''Arista Networks'', ''Arastra, Inc.'',
+        ''Not Present'''
+anta.tests.interfaces:
+- VerifyInterfacesStatus:
+    interfaces:
+    - name: Ethernet1
+      status: up
+    result_overwrite:
+      custom_field: Interface Ethernet1 - P2P_s2-pe01_Ethernet1 = 'up'
+- VerifyInterfacesStatus:
+    interfaces:
+    - name: Ethernet6
+      status: up
+    result_overwrite:
+      custom_field: Interface Ethernet6 - P2P_s1-p01_Ethernet6 = 'up'
+- VerifyInterfacesStatus:
+    interfaces:
+    - name: Ethernet5
+      status: up
+    result_overwrite:
+      custom_field: Interface Ethernet5 - P2P_s2-p02_Ethernet5 = 'up'
+- VerifyInterfacesStatus:
+    interfaces:
+    - name: Loopback0
+      status: up
+    result_overwrite:
+      custom_field: Interface Loopback0 - ROUTER_ID = 'up'
+anta.tests.system:
+- VerifyNTP: null
+- VerifyReloadCause: null

@@ -23,3 +23,6 @@ vrfs:
     ip_routing: true
   - name: 'ETHERNET_VPN'
     ip_routing: true
+  - name: ATM
+    tenant: L3VPN_Only
+    ip_routing: true

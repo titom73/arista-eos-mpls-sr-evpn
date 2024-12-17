@@ -1,6 +1,6 @@
 vlans:
   - name: SVC01_C1_VLAN_SITE01_PE04
-    id: 1014
+    id: 1114
 
 ethernet_interfaces:
   - name: Ethernet1
@@ -8,11 +8,25 @@ ethernet_interfaces:
     vlans: "1-4094"
     mode: "trunk"
 
+  - name: Ethernet2
+    switchport:
+      enabled: false
+    peer_type: l3_interface
+    shutdown: false
+
+  - name: Ethernet2.101
+    peer_type: l3_interface
+    ip_address: 10.2.0.3/31
+    shutdown: false
+    description: L3VPN Only USE CASE
+    encapsulation_dot1q:
+      vlan: 101
+    vrf: ATM
 
 port_channel_interfaces:
 
 vlan_interfaces:
-- name: "Vlan1013"
+- name: "Vlan1114"
   description: SVC01_C1_VLAN_SITE01_PE04 - VRF ETHERNET_VPN
   shutdown: False
   vrf: ETHERNET_VPN
@@ -37,3 +51,54 @@ static_routes:
   - vrf: ETHERNET_VPN
     destination_address_prefix: 0.0.0.0/0
     gateway: 10.1.4.1
+  - vrf: ATM
+    destination_address_prefix: 10.2.254.0/24
+    interface: Null0
+
+router_bgp:
+  as: '65101'
+  updates:
+    wait_install: false
+  peer_groups:
+  - name: MPLS-BACKBONE
+    remote_as: '65000'
+    description: MPLS CONNECTITVITY
+    shutdown: false
+    bfd: false
+    send_community: all
+  vrfs:
+  - name: ATM
+    redistribute:
+      connected:
+        enabled: False
+      static:
+        enabled: true
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.2.0.2
+        activate: true
+    neighbors:
+    - ip_address: 10.2.0.2
+      peer_group: MPLS-BACKBONE
+      description: MPLS CONNECTITVITY S1-PE03
+      route_map_out: RM-MARK-ATM-CE04
+    updates:
+      wait_install: false
+
+prefix_lists:
+  - name: PL-ATM-FAKE-PREFIX
+    sequence_numbers:
+      - sequence: 10
+        action: "permit 10.2.254.0/24"
+
+route_maps:
+    # Route-map Name.
+  - name: RM-MARK-ATM-CE04
+    sequence_numbers:
+      - sequence: 10
+        type: permit
+        description: Mark FAKE route with community 65000:12014
+        # match:
+        #   - "ip address prefix-list PL-ATM-FAKE-PREFIX"
+        set:
+          - "community 65000:10110 additive"

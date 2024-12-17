@@ -1,0 +1,185 @@
+# Validate State Report
+
+**Table of Contents:**
+
+- [Validate State Report](validate-state-report)
+  - [Test Results Summary](#test-results-summary)
+  - [Failed Test Results Summary](#failed-test-results-summary)
+  - [All Test Results](#all-test-results)
+
+## Test Results Summary
+
+### Summary Totals
+
+| Total Tests | Total Tests Passed | Total Tests Failed | Total Tests Skipped |
+| ----------- | ------------------ | ------------------ | ------------------- |
+| 111 | 64 | 27 | 20 |
+
+### Summary Totals Device Under Test
+
+| Device Under Test | Total Tests | Tests Passed | Tests Failed | Tests Skipped | Categories Failed | Categories Skipped |
+| ------------------| ----------- | ------------ | ------------ | ------------- | ----------------- | ------------------ |
+| s1-p01 | 31 | 15 | 12 | 4 | BGP, Connectivity, Interfaces, System | Hardware |
+| s1-pe03 | 22 | 14 | 4 | 4 | BGP, Connectivity, Interfaces, System | Hardware |
+| s1-pe04 | 22 | 14 | 4 | 4 | BGP, Connectivity, Interfaces, System | Hardware |
+| s2-p01 | 15 | 8 | 3 | 4 | Connectivity, Interfaces, System | Hardware |
+| s2-pe01 | 21 | 13 | 4 | 4 | BGP, Connectivity, Interfaces, System | Hardware |
+
+### Summary Totals Per Category
+
+| Test Category | Total Tests | Tests Passed | Tests Failed | Tests Skipped |
+| ------------- | ----------- | ------------ | ------------ | ------------- |
+| BGP | 12 | 6 | 6 | 0 |
+| Connectivity | 27 | 19 | 8 | 0 |
+| Hardware | 20 | 0 | 0 | 20 |
+| Interfaces | 38 | 30 | 8 | 0 |
+| Routing | 4 | 4 | 0 | 0 |
+| System | 10 | 5 | 5 | 0 |
+
+## Failed Test Results Summary
+
+| ID | Device Under Test | Categories | Test | Description | Inputs | Result | Messages |
+| -- | ----------------- | ---------- | ---- | ----------- | ------ | -------| -------- |
+| 1 | s1-p01 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s1-pe01 (IP: 10.255.1.1) | FAIL | Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.1.1': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}] |
+| 2 | s1-p01 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s1-pe02 (IP: 10.255.1.2) | FAIL | Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.1.2': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}] |
+| 5 | s1-p01 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s2-p02 (IP: 10.255.0.4) | FAIL | Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.0.4': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}] |
+| 7 | s1-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet1 - Remote: s1-pe01 Ethernet1 | FAIL | Port(s) not configured:    Ethernet1 |
+| 8 | s1-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet2 - Remote: s1-pe02 Ethernet1 | FAIL | Port(s) not configured:    Ethernet2 |
+| 11 | s1-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet5 - Remote: s1-p02 Ethernet5 | FAIL | Port(s) not configured:    Ethernet5 |
+| 13 | s1-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet7 - Remote: s2-p02 Ethernet7 | FAIL | Port(s) not configured:    Ethernet7 |
+| 21 | s1-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet1 - P2P_s1-pe01_Ethernet1 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet1'] |
+| 22 | s1-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet2 - P2P_s1-pe02_Ethernet1 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet2'] |
+| 25 | s1-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet5 - P2P_s1-p02_Ethernet5 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet5'] |
+| 27 | s1-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet7 - P2P_s2-p02_Ethernet7 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet7'] |
+| 30 | s1-p01 | System | VerifyNTP | Verifies if NTP is synchronised. | - | FAIL | The device is not synchronized with the configured NTP server(s): 'unsynchronised' |
+| 33 | s1-pe03 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s2-p02 (IP: 10.255.0.4) | FAIL | Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.0.4': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}] |
+| 35 | s1-pe03 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet2 - Remote: s1-p02 Ethernet3 | FAIL | Port(s) not configured:    Ethernet2 |
+| 43 | s1-pe03 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet2 - P2P_s1-p02_Ethernet3 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet2'] |
+| 52 | s1-pe03 | System | VerifyNTP | Verifies if NTP is synchronised. | - | FAIL | The device is not synchronized with the configured NTP server(s): 'unsynchronised' |
+| 55 | s1-pe04 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s2-p02 (IP: 10.255.0.4) | FAIL | Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.0.4': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}] |
+| 57 | s1-pe04 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet2 - Remote: s1-p02 Ethernet4 | FAIL | Port(s) not configured:    Ethernet2 |
+| 65 | s1-pe04 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet2 - P2P_s1-p02_Ethernet4 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet2'] |
+| 74 | s1-pe04 | System | VerifyNTP | Verifies if NTP is synchronised. | - | FAIL | The device is not synchronized with the configured NTP server(s): 'unsynchronised' |
+| 77 | s2-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet5 - Remote: s2-p02 Ethernet5 | FAIL | Port(s) not configured:    Ethernet5 |
+| 86 | s2-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet5 - P2P_s2-p02_Ethernet5 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet5'] |
+| 89 | s2-p01 | System | VerifyNTP | Verifies if NTP is synchronised. | - | FAIL | The device is not synchronized with the configured NTP server(s): 'unsynchronised' |
+| 92 | s2-pe01 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s2-p02 (IP: 10.255.0.4) | FAIL | Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.0.4': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}] |
+| 94 | s2-pe01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet2 - Remote: s2-p02 Ethernet1 | FAIL | Port(s) not configured:    Ethernet2 |
+| 102 | s2-pe01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet2 - P2P_s2-p02_Ethernet1 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet2'] |
+| 110 | s2-pe01 | System | VerifyNTP | Verifies if NTP is synchronised. | - | FAIL | The device is not synchronized with the configured NTP server(s): 'unsynchronised' |
+
+## All Test Results
+
+| ID | Device Under Test | Categories | Test | Description | Inputs | Result | Messages |
+| -- | ----------------- | ---------- | ---- | ----------- | ------ | -------| -------- |
+| 1 | s1-p01 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s1-pe01 (IP: 10.255.1.1) | FAIL | Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.1.1': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}] |
+| 2 | s1-p01 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s1-pe02 (IP: 10.255.1.2) | FAIL | Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.1.2': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}] |
+| 3 | s1-p01 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s1-pe03 (IP: 10.255.1.3) | PASS | - |
+| 4 | s1-p01 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s1-pe04 (IP: 10.255.1.4) | PASS | - |
+| 5 | s1-p01 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s2-p02 (IP: 10.255.0.4) | FAIL | Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.0.4': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}] |
+| 6 | s1-p01 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s2-pe01 (IP: 10.255.1.5) | PASS | - |
+| 7 | s1-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet1 - Remote: s1-pe01 Ethernet1 | FAIL | Port(s) not configured:    Ethernet1 |
+| 8 | s1-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet2 - Remote: s1-pe02 Ethernet1 | FAIL | Port(s) not configured:    Ethernet2 |
+| 9 | s1-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet3 - Remote: s1-pe03 Ethernet1 | PASS | - |
+| 10 | s1-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet4 - Remote: s1-pe04 Ethernet1 | PASS | - |
+| 11 | s1-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet5 - Remote: s1-p02 Ethernet5 | FAIL | Port(s) not configured:    Ethernet5 |
+| 12 | s1-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet6 - Remote: s2-p01 Ethernet6 | PASS | - |
+| 13 | s1-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet7 - Remote: s2-p02 Ethernet7 | FAIL | Port(s) not configured:    Ethernet7 |
+| 14 | s1-p01 | Connectivity | VerifyReachability | Test the network reachability to one or many destination IP(s). | Source: P2P Interface Ethernet3 (IP: 10.255.3.9) - Destination: s1-pe03 Ethernet1 (IP: 10.255.3.8) | PASS | - |
+| 15 | s1-p01 | Connectivity | VerifyReachability | Test the network reachability to one or many destination IP(s). | Source: P2P Interface Ethernet4 (IP: 10.255.3.13) - Destination: s1-pe04 Ethernet1 (IP: 10.255.3.12) | PASS | - |
+| 16 | s1-p01 | Connectivity | VerifyReachability | Test the network reachability to one or many destination IP(s). | Source: P2P Interface Ethernet6 (IP: 10.255.3.20) - Destination: s2-p01 Ethernet6 (IP: 10.255.3.21) | PASS | - |
+| 17 | s1-p01 | Hardware | VerifyEnvironmentCooling | Verifies the status of power supply fans and all fan trays. | Accepted States: 'ok' | SKIPPED | VerifyEnvironmentCooling test is not supported on cEOSLab. |
+| 18 | s1-p01 | Hardware | VerifyEnvironmentPower | Verifies the power supplies status. | Accepted States: 'ok' | SKIPPED | VerifyEnvironmentPower test is not supported on cEOSLab. |
+| 19 | s1-p01 | Hardware | VerifyTemperature | Verifies the device temperature. | - | SKIPPED | VerifyTemperature test is not supported on cEOSLab. |
+| 20 | s1-p01 | Hardware | VerifyTransceiversManufacturers | Verifies if all transceivers come from approved manufacturers. | Accepted Manufacturers: 'Arista Networks', 'Arastra, Inc.', 'Not Present' | SKIPPED | VerifyTransceiversManufacturers test is not supported on cEOSLab. |
+| 21 | s1-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet1 - P2P_s1-pe01_Ethernet1 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet1'] |
+| 22 | s1-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet2 - P2P_s1-pe02_Ethernet1 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet2'] |
+| 23 | s1-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet3 - P2P_s1-pe03_Ethernet1 = 'up' | PASS | - |
+| 24 | s1-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet4 - P2P_s1-pe04_Ethernet1 = 'up' | PASS | - |
+| 25 | s1-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet5 - P2P_s1-p02_Ethernet5 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet5'] |
+| 26 | s1-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet6 - P2P_s2-p01_Ethernet6 = 'up' | PASS | - |
+| 27 | s1-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet7 - P2P_s2-p02_Ethernet7 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet7'] |
+| 28 | s1-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Loopback0 - ROUTER_ID = 'up' | PASS | - |
+| 29 | s1-p01 | Routing | VerifyRoutingProtocolModel | Verifies the configured routing protocol model. | Routing protocol model: multi-agent | PASS | - |
+| 30 | s1-p01 | System | VerifyNTP | Verifies if NTP is synchronised. | - | FAIL | The device is not synchronized with the configured NTP server(s): 'unsynchronised' |
+| 31 | s1-p01 | System | VerifyReloadCause | Verifies the last reload cause of the device. | - | PASS | - |
+| 32 | s1-pe03 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s1-p01 (IP: 10.255.0.1) | PASS | - |
+| 33 | s1-pe03 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s2-p02 (IP: 10.255.0.4) | FAIL | Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.0.4': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}] |
+| 34 | s1-pe03 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet1 - Remote: s1-p01 Ethernet3 | PASS | - |
+| 35 | s1-pe03 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet2 - Remote: s1-p02 Ethernet3 | FAIL | Port(s) not configured:    Ethernet2 |
+| 36 | s1-pe03 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet4 - Remote: s1-ce03 eth1 | PASS | - |
+| 37 | s1-pe03 | Connectivity | VerifyReachability | Test the network reachability to one or many destination IP(s). | Source: P2P Interface Ethernet1 (IP: 10.255.3.8) - Destination: s1-p01 Ethernet3 (IP: 10.255.3.9) | PASS | - |
+| 38 | s1-pe03 | Hardware | VerifyEnvironmentCooling | Verifies the status of power supply fans and all fan trays. | Accepted States: 'ok' | SKIPPED | VerifyEnvironmentCooling test is not supported on cEOSLab. |
+| 39 | s1-pe03 | Hardware | VerifyEnvironmentPower | Verifies the power supplies status. | Accepted States: 'ok' | SKIPPED | VerifyEnvironmentPower test is not supported on cEOSLab. |
+| 40 | s1-pe03 | Hardware | VerifyTemperature | Verifies the device temperature. | - | SKIPPED | VerifyTemperature test is not supported on cEOSLab. |
+| 41 | s1-pe03 | Hardware | VerifyTransceiversManufacturers | Verifies if all transceivers come from approved manufacturers. | Accepted Manufacturers: 'Arista Networks', 'Arastra, Inc.', 'Not Present' | SKIPPED | VerifyTransceiversManufacturers test is not supported on cEOSLab. |
+| 42 | s1-pe03 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet1 - P2P_s1-p01_Ethernet3 = 'up' | PASS | - |
+| 43 | s1-pe03 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet2 - P2P_s1-p02_Ethernet3 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet2'] |
+| 44 | s1-pe03 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet4 - ROUTER_s1-ce03_eth1 = 'up' | PASS | - |
+| 45 | s1-pe03 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet5 = 'up' | PASS | - |
+| 46 | s1-pe03 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet5.101 - L3VPN Only USE CASE = 'up' | PASS | - |
+| 47 | s1-pe03 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Loopback0 - ROUTER_ID = 'up' | PASS | - |
+| 48 | s1-pe03 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Loopback1011 - SVC_ETHERNET_LOOPBACK = 'up' | PASS | - |
+| 49 | s1-pe03 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Loopback1012 - SVC_ETHERNET_LOOPBACK = 'up' | PASS | - |
+| 50 | s1-pe03 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Vlan1113 - SVC01_C1_VLAN_SITE01_PE03 = 'up' | PASS | - |
+| 51 | s1-pe03 | Routing | VerifyRoutingProtocolModel | Verifies the configured routing protocol model. | Routing protocol model: multi-agent | PASS | - |
+| 52 | s1-pe03 | System | VerifyNTP | Verifies if NTP is synchronised. | - | FAIL | The device is not synchronized with the configured NTP server(s): 'unsynchronised' |
+| 53 | s1-pe03 | System | VerifyReloadCause | Verifies the last reload cause of the device. | - | PASS | - |
+| 54 | s1-pe04 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s1-p01 (IP: 10.255.0.1) | PASS | - |
+| 55 | s1-pe04 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s2-p02 (IP: 10.255.0.4) | FAIL | Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.0.4': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}] |
+| 56 | s1-pe04 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet1 - Remote: s1-p01 Ethernet4 | PASS | - |
+| 57 | s1-pe04 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet2 - Remote: s1-p02 Ethernet4 | FAIL | Port(s) not configured:    Ethernet2 |
+| 58 | s1-pe04 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet4 - Remote: s1-ce04 eth1 | PASS | - |
+| 59 | s1-pe04 | Connectivity | VerifyReachability | Test the network reachability to one or many destination IP(s). | Source: P2P Interface Ethernet1 (IP: 10.255.3.12) - Destination: s1-p01 Ethernet4 (IP: 10.255.3.13) | PASS | - |
+| 60 | s1-pe04 | Hardware | VerifyEnvironmentCooling | Verifies the status of power supply fans and all fan trays. | Accepted States: 'ok' | SKIPPED | VerifyEnvironmentCooling test is not supported on cEOSLab. |
+| 61 | s1-pe04 | Hardware | VerifyEnvironmentPower | Verifies the power supplies status. | Accepted States: 'ok' | SKIPPED | VerifyEnvironmentPower test is not supported on cEOSLab. |
+| 62 | s1-pe04 | Hardware | VerifyTemperature | Verifies the device temperature. | - | SKIPPED | VerifyTemperature test is not supported on cEOSLab. |
+| 63 | s1-pe04 | Hardware | VerifyTransceiversManufacturers | Verifies if all transceivers come from approved manufacturers. | Accepted Manufacturers: 'Arista Networks', 'Arastra, Inc.', 'Not Present' | SKIPPED | VerifyTransceiversManufacturers test is not supported on cEOSLab. |
+| 64 | s1-pe04 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet1 - P2P_s1-p01_Ethernet4 = 'up' | PASS | - |
+| 65 | s1-pe04 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet2 - P2P_s1-p02_Ethernet4 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet2'] |
+| 66 | s1-pe04 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet4 - ROUTER_s1-ce04_eth1 = 'up' | PASS | - |
+| 67 | s1-pe04 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet5 = 'up' | PASS | - |
+| 68 | s1-pe04 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet5.101 - L3VPN Only USE CASE = 'up' | PASS | - |
+| 69 | s1-pe04 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Loopback0 - ROUTER_ID = 'up' | PASS | - |
+| 70 | s1-pe04 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Loopback1011 - SVC_ETHERNET_LOOPBACK = 'up' | PASS | - |
+| 71 | s1-pe04 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Loopback1012 - SVC_ETHERNET_LOOPBACK = 'up' | PASS | - |
+| 72 | s1-pe04 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Vlan1114 - SVC01_C1_VLAN_SITE01_PE04 = 'up' | PASS | - |
+| 73 | s1-pe04 | Routing | VerifyRoutingProtocolModel | Verifies the configured routing protocol model. | Routing protocol model: multi-agent | PASS | - |
+| 74 | s1-pe04 | System | VerifyNTP | Verifies if NTP is synchronised. | - | FAIL | The device is not synchronized with the configured NTP server(s): 'unsynchronised' |
+| 75 | s1-pe04 | System | VerifyReloadCause | Verifies the last reload cause of the device. | - | PASS | - |
+| 76 | s2-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet1 - Remote: s2-pe01 Ethernet1 | PASS | - |
+| 77 | s2-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet5 - Remote: s2-p02 Ethernet5 | FAIL | Port(s) not configured:    Ethernet5 |
+| 78 | s2-p01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet6 - Remote: s1-p01 Ethernet6 | PASS | - |
+| 79 | s2-p01 | Connectivity | VerifyReachability | Test the network reachability to one or many destination IP(s). | Source: P2P Interface Ethernet1 (IP: 10.255.3.17) - Destination: s2-pe01 Ethernet1 (IP: 10.255.3.16) | PASS | - |
+| 80 | s2-p01 | Connectivity | VerifyReachability | Test the network reachability to one or many destination IP(s). | Source: P2P Interface Ethernet6 (IP: 10.255.3.21) - Destination: s1-p01 Ethernet6 (IP: 10.255.3.20) | PASS | - |
+| 81 | s2-p01 | Hardware | VerifyEnvironmentCooling | Verifies the status of power supply fans and all fan trays. | Accepted States: 'ok' | SKIPPED | VerifyEnvironmentCooling test is not supported on cEOSLab. |
+| 82 | s2-p01 | Hardware | VerifyEnvironmentPower | Verifies the power supplies status. | Accepted States: 'ok' | SKIPPED | VerifyEnvironmentPower test is not supported on cEOSLab. |
+| 83 | s2-p01 | Hardware | VerifyTemperature | Verifies the device temperature. | - | SKIPPED | VerifyTemperature test is not supported on cEOSLab. |
+| 84 | s2-p01 | Hardware | VerifyTransceiversManufacturers | Verifies if all transceivers come from approved manufacturers. | Accepted Manufacturers: 'Arista Networks', 'Arastra, Inc.', 'Not Present' | SKIPPED | VerifyTransceiversManufacturers test is not supported on cEOSLab. |
+| 85 | s2-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet1 - P2P_s2-pe01_Ethernet1 = 'up' | PASS | - |
+| 86 | s2-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet5 - P2P_s2-p02_Ethernet5 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet5'] |
+| 87 | s2-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet6 - P2P_s1-p01_Ethernet6 = 'up' | PASS | - |
+| 88 | s2-p01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Loopback0 - ROUTER_ID = 'up' | PASS | - |
+| 89 | s2-p01 | System | VerifyNTP | Verifies if NTP is synchronised. | - | FAIL | The device is not synchronized with the configured NTP server(s): 'unsynchronised' |
+| 90 | s2-p01 | System | VerifyReloadCause | Verifies the last reload cause of the device. | - | PASS | - |
+| 91 | s2-pe01 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s1-p01 (IP: 10.255.0.1) | PASS | - |
+| 92 | s2-pe01 | BGP | VerifyBGPSpecificPeers | Verifies the health of specific BGP peer(s). | BGP EVPN Peer: s2-p02 (IP: 10.255.0.4) | FAIL | Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.0.4': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}] |
+| 93 | s2-pe01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet1 - Remote: s2-p01 Ethernet1 | PASS | - |
+| 94 | s2-pe01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet2 - Remote: s2-p02 Ethernet1 | FAIL | Port(s) not configured:    Ethernet2 |
+| 95 | s2-pe01 | Connectivity | VerifyLLDPNeighbors | Verifies that the provided LLDP neighbors are connected properly. | Local: Ethernet3 - Remote: s2-ce01 eth1 | PASS | - |
+| 96 | s2-pe01 | Connectivity | VerifyReachability | Test the network reachability to one or many destination IP(s). | Source: P2P Interface Ethernet1 (IP: 10.255.3.16) - Destination: s2-p01 Ethernet1 (IP: 10.255.3.17) | PASS | - |
+| 97 | s2-pe01 | Hardware | VerifyEnvironmentCooling | Verifies the status of power supply fans and all fan trays. | Accepted States: 'ok' | SKIPPED | VerifyEnvironmentCooling test is not supported on cEOSLab. |
+| 98 | s2-pe01 | Hardware | VerifyEnvironmentPower | Verifies the power supplies status. | Accepted States: 'ok' | SKIPPED | VerifyEnvironmentPower test is not supported on cEOSLab. |
+| 99 | s2-pe01 | Hardware | VerifyTemperature | Verifies the device temperature. | - | SKIPPED | VerifyTemperature test is not supported on cEOSLab. |
+| 100 | s2-pe01 | Hardware | VerifyTransceiversManufacturers | Verifies if all transceivers come from approved manufacturers. | Accepted Manufacturers: 'Arista Networks', 'Arastra, Inc.', 'Not Present' | SKIPPED | VerifyTransceiversManufacturers test is not supported on cEOSLab. |
+| 101 | s2-pe01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet1 - P2P_s2-p01_Ethernet1 = 'up' | PASS | - |
+| 102 | s2-pe01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet2 - P2P_s2-p02_Ethernet1 = 'up' | FAIL | The following interface(s) are not configured: ['Ethernet2'] |
+| 103 | s2-pe01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Ethernet3 - ROUTER_s2-ce01_eth1 = 'up' | PASS | - |
+| 104 | s2-pe01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Loopback0 - ROUTER_ID = 'up' | PASS | - |
+| 105 | s2-pe01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Loopback1011 - SVC_ETHERNET_LOOPBACK = 'up' | PASS | - |
+| 106 | s2-pe01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Loopback1012 - SVC_ETHERNET_LOOPBACK = 'up' | PASS | - |
+| 107 | s2-pe01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Vlan1115 - SVC01_C1_VLAN_SITE02_PE01 = 'up' | PASS | - |
+| 108 | s2-pe01 | Interfaces | VerifyInterfacesStatus | Verifies the status of the provided interfaces. | Interface Vlan1205 - L3VPN-EXIT-POINT = 'up' | PASS | - |
+| 109 | s2-pe01 | Routing | VerifyRoutingProtocolModel | Verifies the configured routing protocol model. | Routing protocol model: multi-agent | PASS | - |
+| 110 | s2-pe01 | System | VerifyNTP | Verifies if NTP is synchronised. | - | FAIL | The device is not synchronized with the configured NTP server(s): 'unsynchronised' |
+| 111 | s2-pe01 | System | VerifyReloadCause | Verifies the last reload cause of the device. | - | PASS | - |

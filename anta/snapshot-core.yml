@@ -11,3 +11,4 @@ text_format:
   - "show interfaces description"
   - "show platform tfa personality"
   - "show ip route vrf all"
+  - "show bgp evpn detail"

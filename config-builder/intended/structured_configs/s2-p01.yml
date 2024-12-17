@@ -168,7 +168,7 @@ ethernet_interfaces:
     ip: true
   description: P2P_s2-p02_Ethernet5
 metadata:
-  platform: cEOS-lab
+  platform: ceos
 router_bgp:
   as_notation: asdot
   address_family_evpn:

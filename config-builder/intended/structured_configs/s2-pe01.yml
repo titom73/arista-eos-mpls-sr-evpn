@@ -9,8 +9,6 @@ router_bgp:
   maximum_paths:
     paths: 4
     ecmp: 4
-  updates:
-    wait_install: true
   peer_groups:
   - name: MPLS-OVERLAY-PEERS
     type: mpls
@@ -20,6 +18,11 @@ router_bgp:
     send_community: all
     maximum_routes: 0
     remote_as: '65000'
+    route_map_in: RM-MANAGE-WITH-COMMUNITIES
+  - name: ATM-BACKBONE
+    description: ATM CONNECTITVITY
+    shutdown: false
+    bfd: false
   address_family_evpn:
     neighbor_default:
       encapsulation: mpls
@@ -27,10 +30,14 @@ router_bgp:
     peer_groups:
     - name: MPLS-OVERLAY-PEERS
       activate: true
+    bgp_additional_paths:
+      receive: true
   address_family_ipv4:
     peer_groups:
     - name: MPLS-OVERLAY-PEERS
       activate: false
+    - name: ATM-BACKBONE
+      activate: true
   neighbors:
   - ip_address: 10.255.0.1
     peer_group: MPLS-OVERLAY-PEERS
@@ -41,6 +48,30 @@ router_bgp:
     peer: s2-p02
     description: s2-p02_Loopback0
   vrfs:
+  - name: ATM
+    rd: 10.255.1.5:12
+    route_targets:
+      import:
+      - address_family: evpn
+        route_targets:
+        - '12:12'
+      export:
+      - address_family: evpn
+        route_targets:
+        - '12:12'
+    router_id: 10.255.1.5
+    redistribute:
+      connected:
+        enabled: true
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.2.1.21
+        activate: true
+    neighbors:
+    - ip_address: 10.2.1.21
+      peer_group: ATM-BACKBONE
+      description: ATM CONNECTITVITY S2-CE01
+      remote_as: '65102'
   - name: ETHERNET_VPN
     rd: 10.255.1.5:11
     route_targets:
@@ -57,12 +88,20 @@ router_bgp:
       connected:
         enabled: true
   vlans:
-  - id: 1015
-    tenant: SVC_ETHERNET
-    rd: 10.255.1.5:11015
+  - id: 1205
+    tenant: L3VPN_Only
+    rd: 10.255.1.5:13205
     route_targets:
       both:
-      - 11015:11015
+      - 13205:13205
+    redistribute_routes:
+    - learned
+  - id: 1115
+    tenant: SVC_ETHERNET
+    rd: 10.255.1.5:11115
+    route_targets:
+      both:
+      - 11115:11115
     redistribute_routes:
     - learned
   as_notation: asdot
@@ -112,6 +151,9 @@ clock:
 vrfs:
 - name: MGMT
   ip_routing: false
+- name: ATM
+  tenant: L3VPN_Only
+  ip_routing: true
 - name: ETHERNET_VPN
   tenant: SVC_ETHERNET
   ip_routing: true
@@ -136,7 +178,12 @@ loopback_interfaces:
   isis_passive: true
   node_segment:
     ipv4_index: 5
-- name: Loopback1001
+- name: Loopback1012
+  description: SVC_ETHERNET_LOOPBACK
+  shutdown: false
+  vrf: ATM
+  ip_address: 10.2.255.5/32
+- name: Loopback1011
   description: SVC_ETHERNET_LOOPBACK
   shutdown: false
   vrf: ETHERNET_VPN
@@ -236,14 +283,25 @@ ethernet_interfaces:
     trunk:
       allowed_vlan: 1-4094
 vlans:
-- id: 1015
+- id: 1205
+  name: L3VPN-EXIT-POINT
+  tenant: L3VPN_Only
+- id: 1115
   name: SVC01_C1_VLAN_SITE02_PE01
   tenant: SVC_ETHERNET
 ip_igmp_snooping:
   globally_enabled: true
 ip_virtual_router_mac_address: 00:1c:73:00:dc:00
 vlan_interfaces:
-- name: Vlan1015
+- name: Vlan1205
+  tenant: L3VPN_Only
+  tags:
+  - site02
+  description: L3VPN-EXIT-POINT
+  shutdown: false
+  ip_address_virtual: 10.2.1.1/24
+  vrf: ATM
+- name: Vlan1115
   tenant: SVC_ETHERNET
   tags:
   - site02
@@ -252,4 +310,37 @@ vlan_interfaces:
   ip_address_virtual: 10.1.5.1/24
   vrf: ETHERNET_VPN
 metadata:
-  platform: cEOS-lab
+  platform: ceos
+ip_community_lists:
+- name: CL-INGRESS-ATM-LP-90
+  entries:
+  - action: permit
+    communities:
+    - 65000:10090
+- name: CL-INGRESS-ATM-LP-110
+  entries:
+  - action: permit
+    communities:
+    - 65000:10110
+route_maps:
+- name: RM-MANAGE-WITH-COMMUNITIES
+  sequence_numbers:
+  - sequence: 10
+    type: permit
+    description: Configure LP to 90 for ATM
+    match:
+    - community CL-INGRESS-ATM-LP-90
+    set:
+    - local-preference 90
+  - sequence: 20
+    type: permit
+    description: Configure LP to 110 for ATM
+    match:
+    - community CL-INGRESS-ATM-LP-110
+    set:
+    - local-preference 110
+prefix_lists:
+- name: PL-ATM-FAKE-PREFIX
+  sequence_numbers:
+  - sequence: 10
+    action: permit 10.2.254.0/24

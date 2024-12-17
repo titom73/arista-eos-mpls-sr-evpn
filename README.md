@@ -31,6 +31,10 @@ Lab for MPLS and ISIS-SR related configurations based on containerlab and cEOS.
 
 Detailed information available under [`config-builder`](./config-builder/)
 
+### Labs
+
+- [EVPN L3VPN](docs/l3vpn.md)
+
 ### Credentials
 
 - Username: arista
@@ -65,6 +69,7 @@ Makefile gives options to start only few routers to run a subset of the backbone
 - `base`       Load a base part of the lab - `s1-pe03, s1-pe04, s1-p01, s1-p02, s1-ce03, s1-ce04`
 - `small-mh`   Load a base part of the lab. Multi homed devices oriented - `s1-pe03, s1-pe01, s1-pe02, s1-p01, s1-ce01, s1-ce03`
 - `small-sh`   Load a base part of the lab. Single homed devices oriented - `s1-pe03, s1-pe04, s1-p01, s1-ce03, s1-ce04`
+- `l3vpn`:     Load a base part of the lab to support L3VPN labs - `s1-pe03, s1-pe01, s1-pe02, s1-p01, s1-ce01, s1-ce03, s2-p01, s2-pe01, s2-ce01`
 
 ### Configuration management
 
@@ -79,22 +84,4 @@ ansible-playbook playbooks/config-management.yml --tags deploy
 
 # Build and Push
 ansible-playbook playbooks/config-management.yml --tags build,deploy
-```
-
-### Capture commands
-
-To capture commands outputs, we use ANTA
-
-```bash
-# If direnv not installed
-source .envrc
-
-# Capture commands for core devices
-anta exec snapshot -o anta/<name of your snapshot> -c anta/snapshot-core.yml -t core
-
-# Capture commands for edge devices
-anta exec snapshot -o anta/<name of your snapshot> -c anta/snapshot-edge.yml -t edge
-
-# Capture commands for access devices
-anta exec snapshot -o anta/<name of your snapshot> -c anta/snapshot-access.yml -t access
 ```

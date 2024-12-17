@@ -1,1 +1,2 @@
 pyavd[ansible]
+anta[cli]

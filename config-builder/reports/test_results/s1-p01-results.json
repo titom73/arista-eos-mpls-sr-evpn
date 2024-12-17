@@ -1,0 +1,357 @@
+[
+  {
+    "name": "s1-p01",
+    "test": "VerifyBGPSpecificPeers",
+    "categories": [
+      "bgp"
+    ],
+    "description": "Verifies the health of specific BGP peer(s).",
+    "result": "failure",
+    "messages": [
+      "Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.1.1': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}]"
+    ],
+    "custom_field": "BGP EVPN Peer: s1-pe01 (IP: 10.255.1.1)"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyBGPSpecificPeers",
+    "categories": [
+      "bgp"
+    ],
+    "description": "Verifies the health of specific BGP peer(s).",
+    "result": "failure",
+    "messages": [
+      "Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.1.2': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}]"
+    ],
+    "custom_field": "BGP EVPN Peer: s1-pe02 (IP: 10.255.1.2)"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyBGPSpecificPeers",
+    "categories": [
+      "bgp"
+    ],
+    "description": "Verifies the health of specific BGP peer(s).",
+    "result": "success",
+    "custom_field": "BGP EVPN Peer: s1-pe03 (IP: 10.255.1.3)"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyBGPSpecificPeers",
+    "categories": [
+      "bgp"
+    ],
+    "description": "Verifies the health of specific BGP peer(s).",
+    "result": "success",
+    "custom_field": "BGP EVPN Peer: s1-pe04 (IP: 10.255.1.4)"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyBGPSpecificPeers",
+    "categories": [
+      "bgp"
+    ],
+    "description": "Verifies the health of specific BGP peer(s).",
+    "result": "failure",
+    "messages": [
+      "Failures: [{'afi': 'evpn', 'vrfs': {'default': {'10.255.0.4': {'peerState': 'Active', 'inMsgQueue': 0, 'outMsgQueue': 0}}}}]"
+    ],
+    "custom_field": "BGP EVPN Peer: s2-p02 (IP: 10.255.0.4)"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyBGPSpecificPeers",
+    "categories": [
+      "bgp"
+    ],
+    "description": "Verifies the health of specific BGP peer(s).",
+    "result": "success",
+    "custom_field": "BGP EVPN Peer: s2-pe01 (IP: 10.255.1.5)"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyLLDPNeighbors",
+    "categories": [
+      "connectivity"
+    ],
+    "description": "Verifies that the provided LLDP neighbors are connected properly.",
+    "result": "failure",
+    "messages": [
+      "Port(s) not configured:\n   Ethernet1"
+    ],
+    "custom_field": "Local: Ethernet1 - Remote: s1-pe01 Ethernet1"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyLLDPNeighbors",
+    "categories": [
+      "connectivity"
+    ],
+    "description": "Verifies that the provided LLDP neighbors are connected properly.",
+    "result": "failure",
+    "messages": [
+      "Port(s) not configured:\n   Ethernet2"
+    ],
+    "custom_field": "Local: Ethernet2 - Remote: s1-pe02 Ethernet1"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyLLDPNeighbors",
+    "categories": [
+      "connectivity"
+    ],
+    "description": "Verifies that the provided LLDP neighbors are connected properly.",
+    "result": "success",
+    "custom_field": "Local: Ethernet3 - Remote: s1-pe03 Ethernet1"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyLLDPNeighbors",
+    "categories": [
+      "connectivity"
+    ],
+    "description": "Verifies that the provided LLDP neighbors are connected properly.",
+    "result": "success",
+    "custom_field": "Local: Ethernet4 - Remote: s1-pe04 Ethernet1"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyLLDPNeighbors",
+    "categories": [
+      "connectivity"
+    ],
+    "description": "Verifies that the provided LLDP neighbors are connected properly.",
+    "result": "failure",
+    "messages": [
+      "Port(s) not configured:\n   Ethernet5"
+    ],
+    "custom_field": "Local: Ethernet5 - Remote: s1-p02 Ethernet5"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyLLDPNeighbors",
+    "categories": [
+      "connectivity"
+    ],
+    "description": "Verifies that the provided LLDP neighbors are connected properly.",
+    "result": "success",
+    "custom_field": "Local: Ethernet6 - Remote: s2-p01 Ethernet6"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyLLDPNeighbors",
+    "categories": [
+      "connectivity"
+    ],
+    "description": "Verifies that the provided LLDP neighbors are connected properly.",
+    "result": "failure",
+    "messages": [
+      "Port(s) not configured:\n   Ethernet7"
+    ],
+    "custom_field": "Local: Ethernet7 - Remote: s2-p02 Ethernet7"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyReachability",
+    "categories": [
+      "connectivity"
+    ],
+    "description": "Test the network reachability to one or many destination IP(s).",
+    "result": "success",
+    "custom_field": "Source: P2P Interface Ethernet3 (IP: 10.255.3.9) - Destination: s1-pe03 Ethernet1 (IP: 10.255.3.8)"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyReachability",
+    "categories": [
+      "connectivity"
+    ],
+    "description": "Test the network reachability to one or many destination IP(s).",
+    "result": "success",
+    "custom_field": "Source: P2P Interface Ethernet4 (IP: 10.255.3.13) - Destination: s1-pe04 Ethernet1 (IP: 10.255.3.12)"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyReachability",
+    "categories": [
+      "connectivity"
+    ],
+    "description": "Test the network reachability to one or many destination IP(s).",
+    "result": "success",
+    "custom_field": "Source: P2P Interface Ethernet6 (IP: 10.255.3.20) - Destination: s2-p01 Ethernet6 (IP: 10.255.3.21)"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyEnvironmentCooling",
+    "categories": [
+      "hardware"
+    ],
+    "description": "Verifies the status of power supply fans and all fan trays.",
+    "result": "skipped",
+    "messages": [
+      "VerifyEnvironmentCooling test is not supported on cEOSLab."
+    ],
+    "custom_field": "Accepted States: 'ok'"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyEnvironmentPower",
+    "categories": [
+      "hardware"
+    ],
+    "description": "Verifies the power supplies status.",
+    "result": "skipped",
+    "messages": [
+      "VerifyEnvironmentPower test is not supported on cEOSLab."
+    ],
+    "custom_field": "Accepted States: 'ok'"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyTemperature",
+    "categories": [
+      "hardware"
+    ],
+    "description": "Verifies the device temperature.",
+    "result": "skipped",
+    "messages": [
+      "VerifyTemperature test is not supported on cEOSLab."
+    ]
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyTransceiversManufacturers",
+    "categories": [
+      "hardware"
+    ],
+    "description": "Verifies if all transceivers come from approved manufacturers.",
+    "result": "skipped",
+    "messages": [
+      "VerifyTransceiversManufacturers test is not supported on cEOSLab."
+    ],
+    "custom_field": "Accepted Manufacturers: 'Arista Networks', 'Arastra, Inc.', 'Not Present'"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyInterfacesStatus",
+    "categories": [
+      "interfaces"
+    ],
+    "description": "Verifies the status of the provided interfaces.",
+    "result": "failure",
+    "messages": [
+      "The following interface(s) are not configured: ['Ethernet1']"
+    ],
+    "custom_field": "Interface Ethernet1 - P2P_s1-pe01_Ethernet1 = 'up'"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyInterfacesStatus",
+    "categories": [
+      "interfaces"
+    ],
+    "description": "Verifies the status of the provided interfaces.",
+    "result": "failure",
+    "messages": [
+      "The following interface(s) are not configured: ['Ethernet2']"
+    ],
+    "custom_field": "Interface Ethernet2 - P2P_s1-pe02_Ethernet1 = 'up'"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyInterfacesStatus",
+    "categories": [
+      "interfaces"
+    ],
+    "description": "Verifies the status of the provided interfaces.",
+    "result": "success",
+    "custom_field": "Interface Ethernet3 - P2P_s1-pe03_Ethernet1 = 'up'"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyInterfacesStatus",
+    "categories": [
+      "interfaces"
+    ],
+    "description": "Verifies the status of the provided interfaces.",
+    "result": "success",
+    "custom_field": "Interface Ethernet4 - P2P_s1-pe04_Ethernet1 = 'up'"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyInterfacesStatus",
+    "categories": [
+      "interfaces"
+    ],
+    "description": "Verifies the status of the provided interfaces.",
+    "result": "failure",
+    "messages": [
+      "The following interface(s) are not configured: ['Ethernet5']"
+    ],
+    "custom_field": "Interface Ethernet5 - P2P_s1-p02_Ethernet5 = 'up'"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyInterfacesStatus",
+    "categories": [
+      "interfaces"
+    ],
+    "description": "Verifies the status of the provided interfaces.",
+    "result": "success",
+    "custom_field": "Interface Ethernet6 - P2P_s2-p01_Ethernet6 = 'up'"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyInterfacesStatus",
+    "categories": [
+      "interfaces"
+    ],
+    "description": "Verifies the status of the provided interfaces.",
+    "result": "failure",
+    "messages": [
+      "The following interface(s) are not configured: ['Ethernet7']"
+    ],
+    "custom_field": "Interface Ethernet7 - P2P_s2-p02_Ethernet7 = 'up'"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyInterfacesStatus",
+    "categories": [
+      "interfaces"
+    ],
+    "description": "Verifies the status of the provided interfaces.",
+    "result": "success",
+    "custom_field": "Interface Loopback0 - ROUTER_ID = 'up'"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyRoutingProtocolModel",
+    "categories": [
+      "routing"
+    ],
+    "description": "Verifies the configured routing protocol model.",
+    "result": "success",
+    "custom_field": "Routing protocol model: multi-agent"
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyNTP",
+    "categories": [
+      "system"
+    ],
+    "description": "Verifies if NTP is synchronised.",
+    "result": "failure",
+    "messages": [
+      "The device is not synchronized with the configured NTP server(s): 'unsynchronised'"
+    ]
+  },
+  {
+    "name": "s1-p01",
+    "test": "VerifyReloadCause",
+    "categories": [
+      "system"
+    ],
+    "description": "Verifies the last reload cause of the device.",
+    "result": "success"
+  }
+]

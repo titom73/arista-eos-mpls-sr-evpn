@@ -1,7 +1,7 @@
 # PE router group
 pe:
   defaults:
-    platform: cEOS-lab
+    platform: ceos
     loopback_ipv4_pool: 10.255.1.0/27
     virtual_router_mac_address: 00:1c:73:00:dc:00
     overlay_address_families:

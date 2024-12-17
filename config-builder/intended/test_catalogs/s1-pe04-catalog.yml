@@ -1,0 +1,129 @@
+anta.tests.connectivity:
+- VerifyLLDPNeighbors:
+    neighbors:
+    - neighbor_device: s1-p01.atd.lab
+      neighbor_port: Ethernet4
+      port: Ethernet1
+    result_overwrite:
+      custom_field: 'Local: Ethernet1 - Remote: s1-p01 Ethernet4'
+- VerifyLLDPNeighbors:
+    neighbors:
+    - neighbor_device: s1-p02.atd.lab
+      neighbor_port: Ethernet4
+      port: Ethernet2
+    result_overwrite:
+      custom_field: 'Local: Ethernet2 - Remote: s1-p02 Ethernet4'
+- VerifyLLDPNeighbors:
+    neighbors:
+    - neighbor_device: s1-ce04.atd.lab
+      neighbor_port: eth1
+      port: Ethernet4
+    result_overwrite:
+      custom_field: 'Local: Ethernet4 - Remote: s1-ce04 eth1'
+- VerifyReachability:
+    hosts:
+    - destination: 10.255.3.13
+      repeat: 1
+      source: 10.255.3.12
+      vrf: default
+    result_overwrite:
+      custom_field: 'Source: P2P Interface Ethernet1 (IP: 10.255.3.12) - Destination:
+        s1-p01 Ethernet4 (IP: 10.255.3.13)'
+anta.tests.hardware:
+- VerifyEnvironmentPower:
+    result_overwrite:
+      custom_field: 'Accepted States: ''ok'''
+    states:
+    - ok
+- VerifyEnvironmentCooling:
+    result_overwrite:
+      custom_field: 'Accepted States: ''ok'''
+    states:
+    - ok
+- VerifyTemperature: null
+- VerifyTransceiversManufacturers:
+    manufacturers:
+    - Arista Networks
+    - Arastra, Inc.
+    - Not Present
+    result_overwrite:
+      custom_field: 'Accepted Manufacturers: ''Arista Networks'', ''Arastra, Inc.'',
+        ''Not Present'''
+anta.tests.interfaces:
+- VerifyInterfacesStatus:
+    interfaces:
+    - name: Ethernet1
+      status: up
+    result_overwrite:
+      custom_field: Interface Ethernet1 - P2P_s1-p01_Ethernet4 = 'up'
+- VerifyInterfacesStatus:
+    interfaces:
+    - name: Ethernet2
+      status: up
+    result_overwrite:
+      custom_field: Interface Ethernet2 - P2P_s1-p02_Ethernet4 = 'up'
+- VerifyInterfacesStatus:
+    interfaces:
+    - name: Ethernet5.101
+      status: up
+    result_overwrite:
+      custom_field: Interface Ethernet5.101 - L3VPN Only USE CASE = 'up'
+- VerifyInterfacesStatus:
+    interfaces:
+    - name: Ethernet5
+      status: up
+    result_overwrite:
+      custom_field: Interface Ethernet5 = 'up'
+- VerifyInterfacesStatus:
+    interfaces:
+    - name: Ethernet4
+      status: up
+    result_overwrite:
+      custom_field: Interface Ethernet4 - ROUTER_s1-ce04_eth1 = 'up'
+- VerifyInterfacesStatus:
+    interfaces:
+    - name: Vlan1114
+      status: up
+    result_overwrite:
+      custom_field: Interface Vlan1114 - SVC01_C1_VLAN_SITE01_PE04 = 'up'
+- VerifyInterfacesStatus:
+    interfaces:
+    - name: Loopback0
+      status: up
+    result_overwrite:
+      custom_field: Interface Loopback0 - ROUTER_ID = 'up'
+- VerifyInterfacesStatus:
+    interfaces:
+    - name: Loopback1012
+      status: up
+    result_overwrite:
+      custom_field: Interface Loopback1012 - SVC_ETHERNET_LOOPBACK = 'up'
+- VerifyInterfacesStatus:
+    interfaces:
+    - name: Loopback1011
+      status: up
+    result_overwrite:
+      custom_field: Interface Loopback1011 - SVC_ETHERNET_LOOPBACK = 'up'
+anta.tests.routing.bgp:
+- VerifyBGPSpecificPeers:
+    address_families:
+    - afi: evpn
+      peers:
+      - 10.255.0.1
+    result_overwrite:
+      custom_field: 'BGP EVPN Peer: s1-p01 (IP: 10.255.0.1)'
+- VerifyBGPSpecificPeers:
+    address_families:
+    - afi: evpn
+      peers:
+      - 10.255.0.4
+    result_overwrite:
+      custom_field: 'BGP EVPN Peer: s2-p02 (IP: 10.255.0.4)'
+anta.tests.routing.generic:
+- VerifyRoutingProtocolModel:
+    model: multi-agent
+    result_overwrite:
+      custom_field: 'Routing protocol model: multi-agent'
+anta.tests.system:
+- VerifyNTP: null
+- VerifyReloadCause: null

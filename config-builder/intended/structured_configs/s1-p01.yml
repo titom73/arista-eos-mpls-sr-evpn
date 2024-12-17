@@ -9,8 +9,6 @@ router_bgp:
   maximum_paths:
     paths: 4
     ecmp: 4
-  updates:
-    wait_install: true
   bgp_cluster_id: 10.255.0.1
   peer_groups:
   - name: MPLS-OVERLAY-PEERS
@@ -331,4 +329,4 @@ ethernet_interfaces:
     ip: true
   description: P2P_s2-p02_Ethernet7
 metadata:
-  platform: cEOS-lab
+  platform: ceos

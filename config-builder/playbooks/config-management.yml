@@ -38,3 +38,15 @@
       tags: ['never', 'deploy']
       ansible.builtin.import_role:
         name: arista.avd.eos_config_deploy_eapi
+
+
+- name: Validate topology using AVD eos_validate_states.
+  hosts: backbone
+  gather_facts: false
+  tasks:
+    - name: Validate AVD devices
+      tags: ['never', 'nrfu']
+      ansible.builtin.import_role:
+        name: arista.avd.eos_validate_state
+      vars:
+        save_catalog: true

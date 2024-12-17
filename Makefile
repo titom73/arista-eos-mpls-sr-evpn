@@ -22,6 +22,10 @@ small-sh: ## Load a base part of the lab. Single homed devices oriented.
 small-mh: ## Load a base part of the lab. Multi homed devices oriented.
 	sudo containerlab deploy --node-filter s1-pe03,s1-pe01,s1-pe02,s1-p01,s1-ce01,s1-ce03
 
+.PHONY: l3vpn
+l3vpn: ## Load a base part of the lab to support L3VPN labs
+	sudo containerlab deploy --node-filter s1-pe03,s1-pe04,s1-p01,s1-ce03,s1-ce04,s2-p01,s2-pe01,s2-ce01
+
 .PHONY: large
 base: ## Load a base part of the lab.
 	sudo containerlab deploy --reconfigure

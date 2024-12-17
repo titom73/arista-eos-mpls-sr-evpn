@@ -1,6 +1,6 @@
 p:
   defaults:
-    platform: cEOS-lab
+    platform: ceos
     loopback_ipv4_pool: 10.255.0.0/27
     mpls_route_reflectors: [ s1-p01, s2-p02]
     # mpls_overlay_role: server

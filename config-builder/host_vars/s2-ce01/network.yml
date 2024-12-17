@@ -1,6 +1,8 @@
 vlans:
   - name: SVC01_C1_VLAN_SITE02_PE01
-    id: 1015
+    id: 1115
+  - name: L3VPN_Only
+    id: 1205
 
 ethernet_interfaces:
   - name: Ethernet1
@@ -13,23 +15,16 @@ ethernet_interfaces:
 port_channel_interfaces:
 
 vlan_interfaces:
-- name: "Vlan1015"
+- name: "Vlan1115"
   description: SVC01_C1_VLAN_SITE02_PE01 - VRF ETHERNET_VPN
   shutdown: False
   vrf: ETHERNET_VPN
   ip_address: "10.1.5.{{ device_id }}/24"
-#   vrrp_ids:
-#     - id: 10
-#       priority_level: 100
-#       ipv4:
-#         address: 10.18.10.254
-#         version: 3
-
-# - name: "Vlan2001"
-#   description: vrf-bkp-xco-site01
-#   shutdown: False
-#   vrf: BKP
-#   ip_address: "10.200.1.{{ device_id }}/24"
+- name: "Vlan1205"
+  description: L3VPN_Only - VRF ATM
+  shutdown: False
+  vrf: ATM
+  ip_address: "10.2.1.{{ device_id }}/24"
 
 static_routes:
   - vrf: "{{ management_vrf_name }}"
@@ -38,3 +33,29 @@ static_routes:
   - vrf: ETHERNET_VPN
     destination_address_prefix: 0.0.0.0/0
     gateway: 10.1.5.1
+
+router_bgp:
+  as: '65102'
+  updates:
+    wait_install: false
+  peer_groups:
+  - name: MPLS-BACKBONE
+    remote_as: '65000'
+    description: MPLS CONNECTITVITY
+    shutdown: false
+    bfd: false
+  vrfs:
+  - name: ATM
+    redistribute:
+      connected:
+        enabled: true
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.2.1.1
+        activate: true
+    neighbors:
+    - ip_address: 10.2.1.1
+      peer_group: MPLS-BACKBONE
+      description: MPLS CONNECTITVITY S2-PE01
+    updates:
+      wait_install: false

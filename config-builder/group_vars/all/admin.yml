@@ -2,9 +2,6 @@
 # device_id: "{{ rid.split('.')[3] }}"
 # hostname: "{{ inventory_hostname }}"
 
-custom_structured_configuration_prefix:
-  - custom_core_
-
 aliases: |
   alias ale show ip hardware ale routes unprogrammed
   alias ale6 show ipv6 hardware ale routes unprogrammed

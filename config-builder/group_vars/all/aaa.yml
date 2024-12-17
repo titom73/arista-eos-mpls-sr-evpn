@@ -29,6 +29,12 @@ aaa_authorization:
   exec:
     default: local
 
+aaa_authentication:
+  policies:
+    local:
+      # Allow admin with no password
+      allow_nopassword: True
+
 management_api_http:
   enable_vrfs:
   - name: "{{ management_vrf_name }}"

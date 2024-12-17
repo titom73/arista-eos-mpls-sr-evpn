@@ -2,6 +2,13 @@
 
 ![](../lab-topology.drawio.png)
 
+## Username and password
+
+| Username   | Password    | Allow in ssh |
+|------------|-------------|--------------|
+| `admin`    |  nopassword | True         |
+| `ansible`  |  `ansible`  | True         |
+
 ## Core information
 
 - Management:
@@ -9,7 +16,7 @@
   - Management gateway: `192.168.2.1`
 
 - Underlay:
-  - Backbone ASN: 65001
+  - Backbone ASN: __`65000`__
   - Underlay point to point: `10.255.3.0/24 eq 31`
   - Loopback0 subnets:
     - IPv4:
@@ -26,26 +33,4 @@ Full device documentation available [here](documentation/devices/)
 
 ## Pre-configured services
 
-TBD
-
-<!-- - VRF: __FW-HA__
-  - Description: Firewall connectivity use case
-  - route-target: `1:1`
-  - redistribute:
-      - `connected`
-      - `static`
-  - Vlan SVI:
-      - ID: `1810` / Subnet: `10.18.10.0/24`
-  - Loopback:
-    - ID: `1810` / Subnet: `1.18.10.0/24 eq 32` -->
-
-### VLANS
-
-TBD
-
-## Ethernet Segments
-
-- ESI: `0000:0000:0101:0101:0101`
-  - Members:
-    - `s1-pe01` - `eth4 / po4`
-    - `s1-pe02` - `eth4 / po4`
+- [L3VPN with EVPN](../docs/l3vpn.md)

@@ -4,28 +4,84 @@ tenants:
     mac_vrf_vni_base: 10000
     vrfs:
       - name: 'ETHERNET_VPN'
+        # Supernetwork is: 10.1.0.0/16
         vrf_id: 11
         address_families:
           - evpn
         vtep_diagnostic:
-          loopback: 1001
+          loopback: 1011
           loopback_description: SVC_ETHERNET_LOOPBACK
           loopback_ip_range: 10.1.255.0/24
         svis:
-          - id: 1013
+          - id: 1113
             name: SVC01_C1_VLAN_SITE01_PE03
             enabled: True
             ip_address_virtual: 10.1.3.1/24
             tags: ['node03']
 
-          - id: 1014
+          - id: 1114
             name: SVC01_C1_VLAN_SITE01_PE04
             enabled: True
             ip_address_virtual: 10.1.4.1/24
             tags: ['node04']
 
-          - id: 1015
+          - id: 1115
             name: SVC01_C1_VLAN_SITE02_PE01
             enabled: True
             ip_address_virtual: 10.1.5.1/24
             tags: ['site02']
+
+  - name: L3VPN_Only
+    mac_vrf_vni_base: 12000
+    vrfs:
+      - name: 'ATM'
+        # Supernetwork is: 10.2.0.0/16
+        vrf_id: 12
+        address_families:
+          - evpn
+        vtep_diagnostic:
+          loopback: 1012
+          loopback_description: SVC_ETHERNET_LOOPBACK
+          loopback_ip_range: 10.2.255.0/24
+        svis:
+          - id: 1205
+            name: L3VPN-EXIT-POINT
+            enabled: True
+            ip_address_virtual: 10.2.1.1/24
+            tags: ['site02']
+        l3_interfaces:
+          # L3 interfaces
+          - interfaces: [ Ethernet5.101, Ethernet5.101 ]
+            nodes: [ s1-pe03, s1-pe04 ]
+            description: L3VPN Only USE CASE
+            enabled: true
+            ip_addresses: [ 10.2.0.0/31, 10.2.0.2/31]
+        bgp_peers:
+          - ip_address: 10.2.0.1
+            peer_group: ATM-BACKBONE
+            description: ATM CONNECTITVITY S1-CE03
+            remote_as: 65101
+            nodes: [ s1-pe03 ]
+          - ip_address: 10.2.0.3
+            peer_group: ATM-BACKBONE
+            description: ATM CONNECTITVITY S1-CE04
+            remote_as: 65101
+            nodes: [ s1-pe04 ]
+          - ip_address: 10.2.1.21
+            peer_group: ATM-BACKBONE
+            description: ATM CONNECTITVITY S2-CE01
+            remote_as: 65102
+            nodes: [ s2-pe01 ]
+        bgp_peer_groups:
+          - name: ATM-BACKBONE
+            nodes:
+              - s1-pe03
+              - s1-pe04
+              - s2-pe01
+            address_family_ipv4:
+              activate: True
+              # route_map_in:
+              # route_map_out:
+            description: ATM CONNECTITVITY
+            shutdown: False
+            bfd: False

@@ -18,15 +18,15 @@
 
 | POD | Type | Node | Management IP | Platform | Provisioned in CloudVision | Serial Number |
 | --- | ---- | ---- | ------------- | -------- | -------------------------- | ------------- |
-| backbone | p | s1-p01 | 192.168.2.111/24 | cEOS-lab | Provisioned | - |
-| backbone | p | s1-p02 | 192.168.2.112/24 | cEOS-lab | Provisioned | - |
-| backbone | pe | s1-pe01 | 192.168.2.11/24 | cEOS-lab | Provisioned | - |
-| backbone | pe | s1-pe02 | 192.168.2.12/24 | cEOS-lab | Provisioned | - |
-| backbone | pe | s1-pe03 | 192.168.2.13/24 | cEOS-lab | Provisioned | - |
-| backbone | pe | s1-pe04 | 192.168.2.14/24 | cEOS-lab | Provisioned | - |
-| backbone | p | s2-p01 | 192.168.2.121/24 | cEOS-lab | Provisioned | - |
-| backbone | p | s2-p02 | 192.168.2.122/24 | cEOS-lab | Provisioned | - |
-| backbone | pe | s2-pe01 | 192.168.2.21/24 | cEOS-lab | Provisioned | - |
+| backbone | p | s1-p01 | 192.168.2.111/24 | ceos | Provisioned | - |
+| backbone | p | s1-p02 | 192.168.2.112/24 | ceos | Provisioned | - |
+| backbone | pe | s1-pe01 | 192.168.2.11/24 | ceos | Provisioned | - |
+| backbone | pe | s1-pe02 | 192.168.2.12/24 | ceos | Provisioned | - |
+| backbone | pe | s1-pe03 | 192.168.2.13/24 | ceos | Provisioned | - |
+| backbone | pe | s1-pe04 | 192.168.2.14/24 | ceos | Provisioned | - |
+| backbone | p | s2-p01 | 192.168.2.121/24 | ceos | Provisioned | - |
+| backbone | p | s2-p02 | 192.168.2.122/24 | ceos | Provisioned | - |
+| backbone | pe | s2-pe01 | 192.168.2.21/24 | ceos | Provisioned | - |
 
 > Provision status is based on Ansible inventory declaration and do not represent real status from CloudVision.
 
