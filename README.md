@@ -33,6 +33,7 @@ Detailed information available under [`config-builder`](./config-builder/)
 
 ### Labs
 
+- [EVPN with IRB](docs/evpn-irb.md)
 - [EVPN L3VPN](docs/l3vpn.md)
 
 ### Credentials

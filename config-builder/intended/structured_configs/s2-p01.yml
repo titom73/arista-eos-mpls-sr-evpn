@@ -32,15 +32,7 @@ local_users:
 - name: ansible
   privilege: 15
   role: network-admin
-  sha512_password: $6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/
-- name: arista
-  privilege: 15
-  role: network-admin
-  sha512_password: $6$7WhvEi5Ce5f5Ut3z$Ethmha7rb710RKsaVteusVOuNP1Utfjzse58xxbgiZp4MF0fp7BX5lAw8yBgv/HWCihVomuCSrsJx8wKnJ7Tm1
-- name: tom
-  privilege: 15
-  role: network-admin
-  sha512_password: $6$TyWn7NeXe/vBRl1t$S4fEOkPmpTGz7TLHCzDNP8D2UfpO3ciC2MuGmCaFMVF3B7zt9KSnt9yq99y69XBIY1HV/kO4QjOk32yRQOru5.
+  sha512_password: $6$Bzsa1OORmsTrrpHD$vgoe9jwmM6ZT7ntUXXrSM.oNpVmtNyk0FA/FiF2bdndE1fRDQKp/Y4lQ4CLhnUFRBpKyvgGF9JtBhAmmI9fXC/
 clock:
   timezone: Europe/Paris
 vrfs:
@@ -172,6 +164,9 @@ metadata:
 router_bgp:
   as_notation: asdot
   address_family_evpn:
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      encapsulation: mpls
     neighbor_default:
       encapsulation: mpls
       next_hop_self_source_interface: Loopback0

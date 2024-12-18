@@ -1,33 +1,42 @@
 vlans:
+- name: ETHERNET-VPN-IRB-1101
+  id: 1101
 
 ethernet_interfaces:
   - name: Ethernet1
     description: to s1-pe01 ethernet4
-    vlans: "1-4094"
-    mode: "trunk"
+    shutdown: false
+    channel_group:
+      id: 1
+      mode: active
+  - name: Ethernet2
+    description: to s1-pe02 ethernet4
+    shutdown: false
+    channel_group:
+      id: 1
+      mode: active
 
 port_channel_interfaces:
+  - name: Port-Channel1
+    description: to s1-ce01-po1
+    shutdown: false
+    switchport:
+      enabled: true
+      mode: trunk
+      trunk:
+        allowed_vlan: 1-4094
 
 vlan_interfaces:
-# - name: "Vlan1810"
-#   description: vrf-FW-HA-xco-firewall-site01
-#   shutdown: False
-#   vrf: FW-HA
-#   ip_address: "10.18.10.{{ device_id }}/24"
-#   vrrp_ids:
-#     - id: 10
-#       priority_level: 100
-#       ipv4:
-#         address: 10.18.10.254
-#         version: 3
-
-# - name: "Vlan2001"
-#   description: vrf-bkp-xco-site01
-#   shutdown: False
-#   vrf: BKP
-#   ip_address: "10.200.1.{{ device_id }}/24"
+- name: "Vlan1101"
+  description: vrf-irb-vlan1101
+  shutdown: False
+  vrf: IRB
+  ip_address: "10.1.1.{{ device_id }}/24"
 
 static_routes:
   - vrf: "{{ management_vrf_name }}"
     destination_address_prefix: 0.0.0.0/0
     gateway: 192.168.2.1
+  - vrf: "IRB"
+    destination_address_prefix: 10.1.0.0/16
+    gateway: 10.1.1.1

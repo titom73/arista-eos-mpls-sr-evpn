@@ -30,8 +30,7 @@ router_bgp:
     peer_groups:
     - name: MPLS-OVERLAY-PEERS
       activate: true
-    bgp_additional_paths:
-      receive: true
+      encapsulation: mpls
   address_family_ipv4:
     peer_groups:
     - name: MPLS-OVERLAY-PEERS
@@ -48,6 +47,21 @@ router_bgp:
     peer: s2-p02
     description: s2-p02_Loopback0
   vrfs:
+  - name: IRB
+    rd: 10.255.1.3:11
+    route_targets:
+      import:
+      - address_family: evpn
+        route_targets:
+        - '11:11'
+      export:
+      - address_family: evpn
+        route_targets:
+        - '11:11'
+    router_id: 10.255.1.3
+    redistribute:
+      connected:
+        enabled: true
   - name: ATM
     rd: 10.255.1.3:12
     route_targets:
@@ -74,30 +88,16 @@ router_bgp:
       peer_group: ATM-BACKBONE
       description: ATM CONNECTITVITY S1-CE03
       remote_as: '65101'
-  - name: ETHERNET_VPN
-    rd: 10.255.1.3:11
-    route_targets:
-      import:
-      - address_family: evpn
-        route_targets:
-        - '11:11'
-      export:
-      - address_family: evpn
-        route_targets:
-        - '11:11'
-    router_id: 10.255.1.3
-    redistribute:
-      connected:
-        enabled: true
   vlans:
-  - id: 1113
-    tenant: SVC_ETHERNET
-    rd: 10.255.1.3:11113
+  - id: 1103
+    tenant: ETHERNET_VPN
+    rd: 10.255.1.3:11103
     route_targets:
       both:
-      - 11113:11113
+      - 11103:11103
     redistribute_routes:
     - learned
+    eos_cli: redistribute router-mac system default-gateway
   as_notation: asdot
 static_routes:
 - vrf: MGMT
@@ -131,25 +131,17 @@ local_users:
 - name: ansible
   privilege: 15
   role: network-admin
-  sha512_password: $6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/
-- name: arista
-  privilege: 15
-  role: network-admin
-  sha512_password: $6$7WhvEi5Ce5f5Ut3z$Ethmha7rb710RKsaVteusVOuNP1Utfjzse58xxbgiZp4MF0fp7BX5lAw8yBgv/HWCihVomuCSrsJx8wKnJ7Tm1
-- name: tom
-  privilege: 15
-  role: network-admin
-  sha512_password: $6$TyWn7NeXe/vBRl1t$S4fEOkPmpTGz7TLHCzDNP8D2UfpO3ciC2MuGmCaFMVF3B7zt9KSnt9yq99y69XBIY1HV/kO4QjOk32yRQOru5.
+  sha512_password: $6$Bzsa1OORmsTrrpHD$vgoe9jwmM6ZT7ntUXXrSM.oNpVmtNyk0FA/FiF2bdndE1fRDQKp/Y4lQ4CLhnUFRBpKyvgGF9JtBhAmmI9fXC/
 clock:
   timezone: Europe/Paris
 vrfs:
 - name: MGMT
   ip_routing: false
+- name: IRB
+  tenant: ETHERNET_VPN
+  ip_routing: true
 - name: ATM
   tenant: L3VPN_Only
-  ip_routing: true
-- name: ETHERNET_VPN
-  tenant: SVC_ETHERNET
   ip_routing: true
 management_interfaces:
 - name: Management0
@@ -172,16 +164,16 @@ loopback_interfaces:
   isis_passive: true
   node_segment:
     ipv4_index: 3
+- name: Loopback1011
+  description: ETHERNET_VPN_IRB
+  shutdown: false
+  vrf: IRB
+  ip_address: 10.1.255.3/32
 - name: Loopback1012
   description: SVC_ETHERNET_LOOPBACK
   shutdown: false
   vrf: ATM
   ip_address: 10.2.255.3/32
-- name: Loopback1011
-  description: SVC_ETHERNET_LOOPBACK
-  shutdown: false
-  vrf: ETHERNET_VPN
-  ip_address: 10.1.255.3/32
 router_isis:
   instance: CORE
   log_adjacency_changes: true
@@ -290,21 +282,21 @@ ethernet_interfaces:
     trunk:
       allowed_vlan: 1-4094
 vlans:
-- id: 1113
-  name: SVC01_C1_VLAN_SITE01_PE03
-  tenant: SVC_ETHERNET
+- id: 1103
+  name: ETHERNET_VPN_IRB_S1_CE03
+  tenant: ETHERNET_VPN
 ip_igmp_snooping:
   globally_enabled: true
 ip_virtual_router_mac_address: 00:1c:73:00:dc:00
 vlan_interfaces:
-- name: Vlan1113
-  tenant: SVC_ETHERNET
+- name: Vlan1103
+  tenant: ETHERNET_VPN
   tags:
   - node03
-  description: SVC01_C1_VLAN_SITE01_PE03
+  description: ETHERNET_VPN_IRB_S1_CE03
   shutdown: false
   ip_address_virtual: 10.1.3.1/24
-  vrf: ETHERNET_VPN
+  vrf: IRB
 router_ospf:
   process_ids:
   - id: 1205
@@ -338,6 +330,7 @@ route_maps:
     match:
     - ip address prefix-list PL-ATM-FAKE-PREFIX
     set:
+    - ospf bit dn
     - tag 1205
 - name: RM-MANAGE-WITH-COMMUNITIES
   sequence_numbers:
@@ -355,6 +348,9 @@ route_maps:
     - community CL-INGRESS-ATM-LP-110
     set:
     - local-preference 110
+  - sequence: 90
+    type: permit
+    description: default-term-permit
 prefix_lists:
 - name: PL-ATM-FAKE-PREFIX
   sequence_numbers:

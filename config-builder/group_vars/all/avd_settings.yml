@@ -4,3 +4,4 @@ eos_config_deploy_eapi_pre_running_config_backup: true
 custom_structured_configuration_prefix:
   - custom_core_
   - custom_atm_
+  - custom_irb_

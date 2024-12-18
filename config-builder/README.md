@@ -33,4 +33,5 @@ Full device documentation available [here](documentation/devices/)
 
 ## Pre-configured services
 
+- [EVPN with IRB](../docs/evpn-irb.md)
 - [L3VPN with EVPN](../docs/l3vpn.md)

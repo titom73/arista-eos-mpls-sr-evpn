@@ -1,97 +1,6 @@
 hostname: s2-pe01
 is_deployed: true
-router_bgp:
-  as: '65000'
-  router_id: 10.255.1.5
-  bgp:
-    default:
-      ipv4_unicast: false
-  maximum_paths:
-    paths: 4
-    ecmp: 4
-  peer_groups:
-  - name: MPLS-OVERLAY-PEERS
-    type: mpls
-    update_source: Loopback0
-    bfd: true
-    password: Q4fqtbqcZ7oQuKfuWtNGRQ==
-    send_community: all
-    maximum_routes: 0
-    remote_as: '65000'
-    route_map_in: RM-MANAGE-WITH-COMMUNITIES
-  address_family_evpn:
-    neighbor_default:
-      encapsulation: mpls
-      next_hop_self_source_interface: Loopback0
-    peer_groups:
-    - name: MPLS-OVERLAY-PEERS
-      activate: true
-    bgp_additional_paths:
-      receive: true
-  address_family_ipv4:
-    peer_groups:
-    - name: MPLS-OVERLAY-PEERS
-      activate: false
-  neighbors:
-  - ip_address: 10.255.0.1
-    peer_group: MPLS-OVERLAY-PEERS
-    peer: s1-p01
-    description: s1-p01_Loopback0
-  - ip_address: 10.255.0.4
-    peer_group: MPLS-OVERLAY-PEERS
-    peer: s2-p02
-    description: s2-p02_Loopback0
-  vrfs:
-  - name: ATM
-    rd: 10.255.1.5:12
-    route_targets:
-      import:
-      - address_family: evpn
-        route_targets:
-        - '12:12'
-      export:
-      - address_family: evpn
-        route_targets:
-        - '12:12'
-    router_id: 10.255.1.5
-    redistribute:
-      connected:
-        enabled: true
-      ospf:
-        enabled: true
-  - name: ETHERNET_VPN
-    rd: 10.255.1.5:11
-    route_targets:
-      import:
-      - address_family: evpn
-        route_targets:
-        - '11:11'
-      export:
-      - address_family: evpn
-        route_targets:
-        - '11:11'
-    router_id: 10.255.1.5
-    redistribute:
-      connected:
-        enabled: true
-  vlans:
-  - id: 1205
-    tenant: L3VPN_Only
-    rd: 10.255.1.5:13205
-    route_targets:
-      both:
-      - 13205:13205
-    redistribute_routes:
-    - learned
-  - id: 1115
-    tenant: SVC_ETHERNET
-    rd: 10.255.1.5:11115
-    route_targets:
-      both:
-      - 11115:11115
-    redistribute_routes:
-    - learned
-  as_notation: asdot
+router_bgp: null
 static_routes:
 - vrf: MGMT
   destination_address_prefix: 10.73.0.0/16
@@ -124,15 +33,7 @@ local_users:
 - name: ansible
   privilege: 15
   role: network-admin
-  sha512_password: $6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/
-- name: arista
-  privilege: 15
-  role: network-admin
-  sha512_password: $6$7WhvEi5Ce5f5Ut3z$Ethmha7rb710RKsaVteusVOuNP1Utfjzse58xxbgiZp4MF0fp7BX5lAw8yBgv/HWCihVomuCSrsJx8wKnJ7Tm1
-- name: tom
-  privilege: 15
-  role: network-admin
-  sha512_password: $6$TyWn7NeXe/vBRl1t$S4fEOkPmpTGz7TLHCzDNP8D2UfpO3ciC2MuGmCaFMVF3B7zt9KSnt9yq99y69XBIY1HV/kO4QjOk32yRQOru5.
+  sha512_password: $6$Bzsa1OORmsTrrpHD$vgoe9jwmM6ZT7ntUXXrSM.oNpVmtNyk0FA/FiF2bdndE1fRDQKp/Y4lQ4CLhnUFRBpKyvgGF9JtBhAmmI9fXC/
 clock:
   timezone: Europe/Paris
 vrfs:
@@ -140,9 +41,6 @@ vrfs:
   ip_routing: false
 - name: ATM
   tenant: L3VPN_Only
-  ip_routing: true
-- name: ETHERNET_VPN
-  tenant: SVC_ETHERNET
   ip_routing: true
 management_interfaces:
 - name: Management0
@@ -170,11 +68,6 @@ loopback_interfaces:
   shutdown: false
   vrf: ATM
   ip_address: 10.2.255.5/32
-- name: Loopback1011
-  description: SVC_ETHERNET_LOOPBACK
-  shutdown: false
-  vrf: ETHERNET_VPN
-  ip_address: 10.1.255.5/32
 router_isis:
   instance: CORE
   log_adjacency_changes: true
@@ -273,9 +166,6 @@ vlans:
 - id: 1205
   name: L3VPN-EXIT-POINT
   tenant: L3VPN_Only
-- id: 1115
-  name: SVC01_C1_VLAN_SITE02_PE01
-  tenant: SVC_ETHERNET
 ip_igmp_snooping:
   globally_enabled: true
 ip_virtual_router_mac_address: 00:1c:73:00:dc:00
@@ -290,14 +180,6 @@ vlan_interfaces:
   vrf: ATM
   ospf_area: 0.0.0.0
   ospf_network_point_to_point: true
-- name: Vlan1115
-  tenant: SVC_ETHERNET
-  tags:
-  - site02
-  description: SVC01_C1_VLAN_SITE02_PE01
-  shutdown: false
-  ip_address_virtual: 10.1.5.1/24
-  vrf: ETHERNET_VPN
 router_ospf:
   process_ids:
   - id: 1205
@@ -332,6 +214,7 @@ route_maps:
     match:
     - ip address prefix-list PL-ATM-FAKE-PREFIX
     set:
+    - ospf bit dn
     - tag 1205
 - name: RM-MANAGE-WITH-COMMUNITIES
   sequence_numbers:
@@ -349,6 +232,9 @@ route_maps:
     - community CL-INGRESS-ATM-LP-110
     set:
     - local-preference 110
+  - sequence: 90
+    type: permit
+    description: default-term-permit
 prefix_lists:
 - name: PL-ATM-FAKE-PREFIX
   sequence_numbers:
