@@ -38,8 +38,8 @@ Detailed information available under [`config-builder`](./config-builder/)
 
 ### Credentials
 
-- Username: arista
-- Password: arista
+- User: admin (no password)
+- User: arista (password: arista)
 
 ## Commands
 

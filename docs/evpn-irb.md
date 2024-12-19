@@ -6,7 +6,7 @@ This lab covers a L3VPN based on EVPN control-plane:
 
 - Trunk link between __s1-ce03__ and __s1-pe03__ to carry vlan `1103`
 - Ethernet Segment to dual attached __s1-ce01__ to both __s1-pe01__ and __s1-pe02__ to carry vlan `1101` on trunk interface.
-- Ethernet Segement is based on A/A model.
+- Ethernet Segment is based on A/A model.
 
 ![](imgs/lab-topology-evepn-irb.drawio.png)
 
@@ -35,7 +35,7 @@ This lab covers a L3VPN based on EVPN control-plane:
 - VRF ID: `11`
 - Tenant supernet: `10.1.0.0/16`
 - Ethernet Segment:
-    - ESI: 0000:0000:0101:0101:0101
+    - ESI: `0000:0000:0101:0101:0101`
         - s1-pe01 - Ethernet4
         - s1-pe02 - Ethernet4
 
