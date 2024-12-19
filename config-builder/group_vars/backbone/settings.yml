@@ -32,6 +32,9 @@ bgp_peer_groups:
 custom_core_router_bgp:
   as_notation: "asdot"
   address_family_evpn:
+    peer_groups:
+      - name: "MPLS-OVERLAY-PEERS"
+        encapsulation: "mpls"
     neighbor_default:
       encapsulation: "mpls"
       next_hop_self_source_interface: "Loopback0"

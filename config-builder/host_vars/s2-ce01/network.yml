@@ -7,9 +7,12 @@ vlans:
 ethernet_interfaces:
   - name: Ethernet1
     description: to s2-pe01 ethernet4
-    vlans: "1-4094"
-    # FIXME: Generate a warning during the build process
-    mode: "trunk"
+    # vlans: "1-4094"
+    switchport:
+      enabled: True
+      mode: "trunk"
+      trunk:
+        allowed_vlan: '1-4094'
 
 
 port_channel_interfaces:
@@ -44,8 +47,7 @@ router_ospf:
     passive_interface_default: false
     no_passive_interfaces:
     - Vlan1205
-    eos_cli: |
-      dn-bit-ignore
+    eos_cli: "dn-bit-ignore"
 
     # router_id: 10.255.1.5
     # redistribute:

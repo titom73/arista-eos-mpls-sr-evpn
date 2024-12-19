@@ -39,12 +39,14 @@ custom_atm_route_maps:
           - "community CL-INGRESS-ATM-LP-110"
         set:
           - "local-preference 110"
+      - sequence: 90
+        type: permit
+        description: default-term-permit
 
 custom_atm_router_bgp:
-  address_family_evpn:
-    bgp_additional_paths:
-      receive: True
-
+  # bgp:
+  #   additional_paths:
+  #     receive: True
   peer_groups:
   - name: MPLS-OVERLAY-PEERS
     route_map_in: RM-MANAGE-WITH-COMMUNITIES

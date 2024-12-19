@@ -5,8 +5,12 @@ vlans:
 ethernet_interfaces:
   - name: Ethernet1
     description: to s1-pe04 ethernet4
-    vlans: "1-4094"
-    mode: "trunk"
+    # vlans: "1-4094"
+    switchport:
+      enabled: True
+      mode: "trunk"
+      trunk:
+        allowed_vlan: '1-4094'
 
   - name: Ethernet2
     switchport:

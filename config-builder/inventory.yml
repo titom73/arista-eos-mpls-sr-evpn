@@ -10,10 +10,10 @@ all:
           device_id: 11
         s1-ce03:
           ansible_host: 192.168.2.212
-          device_id: 12
+          device_id: 13
         s1-ce04:
           ansible_host: 192.168.2.213
-          device_id: 13
+          device_id: 14
         s2-ce01:
           ansible_host: 192.168.2.221
           device_id: 21
