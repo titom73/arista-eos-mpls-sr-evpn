@@ -24,6 +24,11 @@ tenants:
             enabled: True
             ip_address_virtual: 10.1.3.1/24
             tags: ['node03']
+    l2vlans:
+      - id: 1199
+        name: ETHERNET_VPN_L2VLAN
+        tags: ['node01', 'node02', 'node03']
+        vxlan: True
 
   - name: L3VPN_Only
     mac_vrf_vni_base: 12000

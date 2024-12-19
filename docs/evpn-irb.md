@@ -18,14 +18,26 @@ This lab covers a L3VPN based on EVPN control-plane:
 
 | CE node | CE interface   | IP address     | IP address    | PE interface   | PE node  |
 |---------|----------------|----------------|---------------|----------------|----------|
-|s1-ce03  | Vlan1103       | `10.1.3.12/24` | `10.1.3.1/24` | Vlan1103       | s1-pe03  |
+|s1-ce03  | Vlan1103       | `10.1.3.13/24` | `10.1.3.1/24` | Vlan1103       | s1-pe03  |
 |s1-ce01  | Vlan1101       | `10.1.1.11/24` | `10.1.1.1/24` | Vlan1101       | s2-pe01  |
 |s1-ce01  | Vlan1101       | `10.1.1.11/24` | `10.1.1.1/24` | Vlan1101       | s2-pe02  |
+
+#### Standard Ethernet Segment connectivity with L2VLAN
+
+| CE node | CE interface   | IP address     | IP address    | PE interface   | PE node  |
+|---------|----------------|----------------|---------------|----------------|----------|
+|s1-ce03  | Vlan1103       | `10.1.99.13/24` | `N/A`        | Vlan1199       | s1-pe03  |
+|s1-ce01  | Vlan1101       | `10.1.99.11/24` | `N/A`        | Vlan1199       | s2-pe01  |
+|s1-ce01  | Vlan1101       | `10.1.99.11/24` | `N/A`        | Vlan1199       | s2-pe02  |
 
 ### Configuration information
 
 - VRF ID: `11`
 - Tenant supernet: `10.1.0.0/16`
+- Ethernet Segment:
+    - ESI: 0000:0000:0101:0101:0101
+        - s1-pe01 - Ethernet4
+        - s1-pe02 - Ethernet4
 
 ## Snapshot
 

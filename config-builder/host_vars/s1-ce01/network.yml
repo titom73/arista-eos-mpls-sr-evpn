@@ -1,6 +1,8 @@
 vlans:
 - name: ETHERNET-VPN-IRB-1101
   id: 1101
+- name: ETHERNET-VPN-L2VLAN-1199
+  id: 1199
 
 ethernet_interfaces:
   - name: Ethernet1
@@ -32,6 +34,11 @@ vlan_interfaces:
   shutdown: False
   vrf: IRB
   ip_address: "10.1.1.{{ device_id }}/24"
+- name: "Vlan1199"
+  description: vrf-irb-vlan1199
+  shutdown: False
+  vrf: L2VLAN
+  ip_address: "10.1.99.{{ device_id }}/24"
 
 static_routes:
   - vrf: "{{ management_vrf_name }}"

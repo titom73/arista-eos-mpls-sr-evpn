@@ -29,3 +29,6 @@ vrfs:
   - name: IRB
     tenant: ETHERNET_VPN_IRB
     ip_routing: true
+  - name: L2VLAN
+    tenant: ETHERNET_VPN_IRB
+    ip_routing: true

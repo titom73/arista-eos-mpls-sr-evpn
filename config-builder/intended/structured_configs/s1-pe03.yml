@@ -98,6 +98,14 @@ router_bgp:
     redistribute_routes:
     - learned
     eos_cli: redistribute router-mac system default-gateway
+  - id: 1199
+    tenant: ETHERNET_VPN
+    rd: 10.255.1.3:11199
+    route_targets:
+      both:
+      - 11199:11199
+    redistribute_routes:
+    - learned
   as_notation: asdot
 static_routes:
 - vrf: MGMT
@@ -284,6 +292,9 @@ ethernet_interfaces:
 vlans:
 - id: 1103
   name: ETHERNET_VPN_IRB_S1_CE03
+  tenant: ETHERNET_VPN
+- id: 1199
+  name: ETHERNET_VPN_L2VLAN
   tenant: ETHERNET_VPN
 ip_igmp_snooping:
   globally_enabled: true
