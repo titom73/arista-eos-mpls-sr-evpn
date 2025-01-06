@@ -28,6 +28,7 @@ bgp_peer_groups:
 # FIXME: This is a temporary solution to avoid the issue with the
 # Extension to get a fully configured
 # neighbor default encapsulation mpls next-hop-self source-interface Loopback0
+# Reference to Arista BUG 759416
 # If not, only encapsulation mpls is configured with the key 'default_evpn_encapsulation: mpls'
 custom_core_router_bgp:
   as_notation: "asdot"

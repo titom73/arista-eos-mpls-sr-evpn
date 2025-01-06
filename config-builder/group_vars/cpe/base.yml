@@ -32,3 +32,6 @@ vrfs:
   - name: L2VLAN
     tenant: ETHERNET_VPN_IRB
     ip_routing: true
+  - name: FW
+    tenant: FIREWALL-BGP
+    ip_routing: true

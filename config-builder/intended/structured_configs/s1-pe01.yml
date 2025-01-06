@@ -56,6 +56,33 @@ router_bgp:
     redistribute:
       connected:
         enabled: true
+  - name: FW
+    rd: 10.255.1.1:13
+    route_targets:
+      import:
+      - address_family: evpn
+        route_targets:
+        - '13:13'
+      export:
+      - address_family: evpn
+        route_targets:
+        - '13:13'
+    router_id: 10.255.1.1
+    redistribute:
+      connected:
+        enabled: true
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.3.1.11
+        activate: true
+    neighbors:
+    - ip_address: 10.3.1.11
+      remote_as: '65103'
+      update_source: Loopback1013
+      peer_group: FIREWALL-BGP
+      description: FIREWALL-BGP S1-CE01
+      send_community: standard extended
+      ebgp_multihop: 10
   vlans:
   - id: 1101
     tenant: ETHERNET_VPN
@@ -74,6 +101,15 @@ router_bgp:
       - 11199:11199
     redistribute_routes:
     - learned
+  - id: 1301
+    tenant: FIREWALL
+    rd: 10.255.1.1:14301
+    route_targets:
+      both:
+      - 14301:14301
+    redistribute_routes:
+    - learned
+    eos_cli: redistribute router-mac system default-gateway
   as_notation: asdot
 static_routes:
 - vrf: MGMT
@@ -116,6 +152,9 @@ vrfs:
 - name: IRB
   tenant: ETHERNET_VPN
   ip_routing: true
+- name: FW
+  tenant: FIREWALL
+  ip_routing: true
 management_interfaces:
 - name: Management0
   description: OOB_MANAGEMENT
@@ -142,6 +181,12 @@ loopback_interfaces:
   shutdown: false
   vrf: IRB
   ip_address: 10.1.255.1/32
+- name: Loopback1013
+  description: SVC_FIREWALL_LOOPBACK
+  shutdown: false
+  vrf: FW
+  ip_address: 10.3.255.1/32
+  eos_cli: hardware forwarding id
 router_isis:
   instance: CORE
   log_adjacency_changes: true
@@ -241,6 +286,9 @@ vlans:
 - id: 1199
   name: ETHERNET_VPN_L2VLAN
   tenant: ETHERNET_VPN
+- id: 1301
+  name: FIREWALL-BGP-EXIT-S1-NORTH
+  tenant: FIREWALL
 ip_igmp_snooping:
   globally_enabled: true
 ip_virtual_router_mac_address: 00:1c:73:00:dc:00
@@ -254,6 +302,17 @@ vlan_interfaces:
   shutdown: false
   ip_address_virtual: 10.1.1.1/24
   vrf: IRB
+- name: Vlan1301
+  tenant: FIREWALL
+  tags:
+  - node01
+  - node02
+  description: FIREWALL-BGP-EXIT-S1-NORTH
+  shutdown: false
+  ip_address: 10.3.1.2/24
+  ip_virtual_router_addresses:
+  - 10.3.1.1
+  vrf: FW
 port_channel_interfaces:
 - name: Port-Channel4
   description: to s1-ce01-po1

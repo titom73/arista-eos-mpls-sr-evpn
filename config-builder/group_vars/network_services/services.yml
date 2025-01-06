@@ -30,6 +30,41 @@ tenants:
         tags: ['node01', 'node02', 'node03']
         vxlan: True
 
+  - name: FIREWALL
+    mac_vrf_vni_base: 13000
+    vrfs:
+      - name: 'FW'
+        # Supernetwork is: 10.3.0.0/16
+        vrf_id: 13
+        address_families:
+          - evpn
+        vtep_diagnostic:
+          loopback: 1013
+          loopback_description: SVC_FIREWALL_LOOPBACK
+          loopback_ip_range: 10.3.255.0/24
+        svis:
+          - id: 1301
+            name: FIREWALL-BGP-EXIT-S1-NORTH
+            enabled: True
+            ip_virtual_router_addresses:
+              - 10.3.1.1
+            nodes:
+              - node: s1-pe01
+                ip_address: 10.3.1.2/24
+              - node: s1-pe02
+                ip_address: 10.3.1.3/24
+            tags: ['node01', 'node02']
+        bgp_peers:
+          - ip_address: 10.3.1.11
+            remote_as: 65103
+            update_source: Loopback1013
+            peer_group: FIREWALL-BGP
+            description: FIREWALL-BGP S1-CE01
+            send_community: "standard extended"
+            ebgp_multihop: 10
+            nodes: [ s1-pe01, s1-pe02 ]
+
+
   - name: L3VPN_Only
     mac_vrf_vni_base: 12000
     vrfs:

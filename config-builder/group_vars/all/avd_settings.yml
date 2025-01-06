@@ -5,3 +5,4 @@ custom_structured_configuration_prefix:
   - custom_core_
   - custom_atm_
   - custom_irb_
+  - custom_fw_bgp_
