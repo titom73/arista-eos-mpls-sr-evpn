@@ -87,3 +87,24 @@ ansible-playbook playbooks/config-management.yml --tags deploy
 # Build and Push
 ansible-playbook playbooks/config-management.yml --tags build,deploy
 ```
+
+### Setup environment
+
+In a virtual environment, run the following for avd runs:
+
+```bash
+# Install python requirements
+pip install -r requirements.txt
+
+# Install avd collection
+ansible-egalaxy collection install -r collections.yml
+```
+
+Install containelab:
+
+```bash
+bash -c "$(curl -sL https://get.containerlab.dev)"
+```
+
+> [!WARNING]
+> For MacOS installation, please refer to containerlab [website](https://containerlab.dev/install/)
