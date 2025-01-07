@@ -97,7 +97,7 @@ In a virtual environment, run the following for avd runs:
 pip install -r requirements.txt
 
 # Install avd collection
-ansible-egalaxy collection install -r collections.yml
+ansible-galaxy collection install -r collections.yml
 ```
 
 Install containelab:
