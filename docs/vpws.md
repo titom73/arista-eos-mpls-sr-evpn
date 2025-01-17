@@ -19,6 +19,7 @@ This lab covers a VPWS Pseudowire based on BGP control-plane:
 | CE node | CE interface         | IP address     | IP address      | PE interface   | PE node  |
 |---------|----------------------|----------------|-----------------|----------------|----------|
 |s1-ce03  | Vlan1401 / Ethernet3 | `10.4.1.13/24` | N/A             | Ethernet6      | s1-pe03  |
+|s1-ce04  | Vlan1401 / Ethernet3 | `10.4.1.14/24` | N/A             | Ethernet6      | s1-pe04  |
 
 
 ### Configuration information
