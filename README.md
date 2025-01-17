@@ -36,6 +36,7 @@ Detailed information available under [`config-builder`](./config-builder/)
 - [EVPN with IRB](docs/evpn-irb.md)
 - [EVPN L3VPN](docs/l3vpn.md)
 - [EVPN with BGP as CE to PE and Firewall Cluster](docs/pe-to-ce-bgp-firewall.md)
+- [Pseudowire & VPWS](./docs/vpws.md)
 
 ### Credentials
 

@@ -37,11 +37,13 @@ pe:
       filter:
         tags: [ 'site01', 'south', 'node03']
       mgmt_ip: 192.168.2.13/24
+
     - name: s1-pe04
       id: 4
       filter:
         tags: [ 'site01', 'south', 'node04']
       mgmt_ip: 192.168.2.14/24
+
     - name: s2-pe01
       id: 5
       filter:

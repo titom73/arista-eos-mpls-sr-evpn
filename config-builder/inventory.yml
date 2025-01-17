@@ -66,3 +66,11 @@ all:
             s1-ce03:
             s1-ce04:
             s2-ce01:
+
+        vpws:
+          hosts:
+            s1-pe03:
+            s1-pe04:
+            s1-p01:
+            s1-ce03:
+            s1-ce04:

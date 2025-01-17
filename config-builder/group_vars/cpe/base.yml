@@ -35,3 +35,6 @@ vrfs:
   - name: FW
     tenant: FIREWALL-BGP
     ip_routing: true
+  - name: VPWS
+    tenant: VPWS-service
+    ip_routing: False

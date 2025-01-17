@@ -64,7 +64,6 @@ tenants:
             ebgp_multihop: 10
             nodes: [ s1-pe01, s1-pe02 ]
 
-
   - name: L3VPN_Only
     mac_vrf_vni_base: 12000
     vrfs:
@@ -127,3 +126,23 @@ tenants:
             description: ATM CONNECTITVITY
             shutdown: False
             bfd: False
+
+  - name: VPWS
+    pseudowire_rt_base: 14000
+    point_to_point_services:
+        # Pseudowire name.
+      - name: s1-ce03-s1-ce04
+        type: "vpws-pseudowire"
+        # Pseudowire terminating endpoints. Must have exactly two items.
+        endpoints:
+          - id: 3
+            nodes:
+              - s1-pe03
+            interfaces:
+              - eth6
+          - id: 4
+            nodes:
+              - s1-pe04
+            interfaces:
+              - eth6
+        lldp_disable: True

@@ -1,6 +1,73 @@
 hostname: s2-pe01
 is_deployed: true
-router_bgp: null
+router_bgp:
+  as: '65000'
+  router_id: 10.255.1.5
+  bgp:
+    default:
+      ipv4_unicast: false
+  maximum_paths:
+    paths: 4
+    ecmp: 4
+  peer_groups:
+  - name: MPLS-OVERLAY-PEERS
+    type: mpls
+    update_source: Loopback0
+    bfd: true
+    password: Q4fqtbqcZ7oQuKfuWtNGRQ==
+    send_community: all
+    maximum_routes: 0
+    remote_as: '65000'
+    route_map_in: RM-MANAGE-WITH-COMMUNITIES
+  address_family_evpn:
+    neighbor_default:
+      encapsulation: mpls
+      next_hop_self_source_interface: Loopback0
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: true
+      encapsulation: mpls
+  address_family_ipv4:
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: false
+  neighbors:
+  - ip_address: 10.255.0.1
+    peer_group: MPLS-OVERLAY-PEERS
+    peer: s1-p01
+    description: s1-p01_Loopback0
+  - ip_address: 10.255.0.4
+    peer_group: MPLS-OVERLAY-PEERS
+    peer: s2-p02
+    description: s2-p02_Loopback0
+  vrfs:
+  - name: ATM
+    rd: 10.255.1.5:12
+    route_targets:
+      import:
+      - address_family: evpn
+        route_targets:
+        - '12:12'
+      export:
+      - address_family: evpn
+        route_targets:
+        - '12:12'
+    router_id: 10.255.1.5
+    redistribute:
+      connected:
+        enabled: true
+      ospf:
+        enabled: true
+  vlans:
+  - id: 1205
+    tenant: L3VPN_Only
+    rd: 10.255.1.5:13205
+    route_targets:
+      both:
+      - 13205:13205
+    redistribute_routes:
+    - learned
+  as_notation: asdot
 static_routes:
 - vrf: MGMT
   destination_address_prefix: 10.73.0.0/16

@@ -7,3 +7,4 @@ custom_structured_configuration_prefix:
   - custom_irb_
   - custom_fw_bgp_
   - custom_maintenance_
+  - custom_vpws_service_

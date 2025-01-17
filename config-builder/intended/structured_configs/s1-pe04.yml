@@ -1,6 +1,88 @@
 hostname: s1-pe04
 is_deployed: true
-router_bgp: null
+router_bgp:
+  as: '65000'
+  router_id: 10.255.1.4
+  bgp:
+    default:
+      ipv4_unicast: false
+  maximum_paths:
+    paths: 4
+    ecmp: 4
+  peer_groups:
+  - name: MPLS-OVERLAY-PEERS
+    type: mpls
+    update_source: Loopback0
+    bfd: true
+    password: Q4fqtbqcZ7oQuKfuWtNGRQ==
+    send_community: all
+    maximum_routes: 0
+    remote_as: '65000'
+    route_map_in: RM-MANAGE-WITH-COMMUNITIES
+  - name: ATM-BACKBONE
+    description: ATM CONNECTITVITY
+    shutdown: false
+    bfd: false
+  address_family_evpn:
+    neighbor_default:
+      encapsulation: mpls
+      next_hop_self_source_interface: Loopback0
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: true
+      encapsulation: mpls
+  address_family_ipv4:
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: false
+    - name: ATM-BACKBONE
+      activate: true
+  neighbors:
+  - ip_address: 10.255.0.1
+    peer_group: MPLS-OVERLAY-PEERS
+    peer: s1-p01
+    description: s1-p01_Loopback0
+  - ip_address: 10.255.0.4
+    peer_group: MPLS-OVERLAY-PEERS
+    peer: s2-p02
+    description: s2-p02_Loopback0
+  vrfs:
+  - name: ATM
+    rd: 10.255.1.4:12
+    route_targets:
+      import:
+      - address_family: evpn
+        route_targets:
+        - '12:12'
+      export:
+      - address_family: evpn
+        route_targets:
+        - '12:12'
+    router_id: 10.255.1.4
+    redistribute:
+      connected:
+        enabled: true
+      ospf:
+        enabled: true
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.2.0.3
+        activate: true
+    neighbors:
+    - ip_address: 10.2.0.3
+      peer_group: ATM-BACKBONE
+      description: ATM CONNECTITVITY S1-CE04
+      remote_as: '65101'
+  vpws:
+  - name: VPWS
+    rd: 10.255.1.4:14000
+    route_targets:
+      import_export: 14000:14000
+    pseudowires:
+    - name: s1-ce03-s1-ce04
+      id_local: 4
+      id_remote: 3
+  as_notation: asdot
 static_routes:
 - vrf: MGMT
   destination_address_prefix: 10.73.0.0/16
@@ -159,6 +241,14 @@ ethernet_interfaces:
   encapsulation_dot1q:
     vlan: 101
   vrf: ATM
+- name: eth6
+  switchport:
+    enabled: false
+  peer_type: point_to_point_service
+  shutdown: false
+  lldp:
+    transmit: false
+    receive: false
 - name: Ethernet5
   switchport:
     enabled: false
@@ -175,6 +265,17 @@ ethernet_interfaces:
     mode: trunk
     trunk:
       allowed_vlan: 1-4094
+patch_panel:
+  patches:
+  - name: s1-ce03-s1-ce04
+    enabled: true
+    connectors:
+    - id: '1'
+      type: interface
+      endpoint: eth6
+    - id: '2'
+      type: pseudowire
+      endpoint: bgp vpws VPWS pseudowire s1-ce03-s1-ce04
 ip_igmp_snooping:
   globally_enabled: true
 ip_virtual_router_mac_address: 00:1c:73:00:dc:00

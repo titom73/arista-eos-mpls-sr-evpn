@@ -139,8 +139,11 @@ topology:
 
     - endpoints: ["s1-ce03:eth1", "s1-pe03:eth4"]
     - endpoints: ["s1-ce03:eth2", "s1-pe03:eth5"]
+    - endpoints: ["s1-ce03:eth3", "s1-pe03:eth6"]
+
     - endpoints: ["s1-ce04:eth1", "s1-pe04:eth4"]
     - endpoints: ["s1-ce04:eth2", "s1-pe04:eth5"]
+    - endpoints: ["s1-ce04:eth3", "s1-pe04:eth6"]
 
   # Site 2 PE
     - endpoints: ["s2-pe01:eth1", "s2-p01:eth1"]

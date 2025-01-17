@@ -3,6 +3,8 @@ vlans:
   id: 1103
 - name: ETHERNET-VPN-L2VLAN-1199
   id: 1199
+- name: VPWS-1401
+  id: 1401
 
 ethernet_interfaces:
   - name: Ethernet1
@@ -29,6 +31,16 @@ ethernet_interfaces:
       vlan: 101
     vrf: ATM
 
+  - name: Ethernet3
+    description: to s1-pe03 ethernet6
+    # vlans: "1-4094"
+    switchport:
+      enabled: True
+      mode: "trunk"
+      trunk:
+        allowed_vlan: '1-4094'
+
+
 port_channel_interfaces:
 
 vlan_interfaces:
@@ -43,6 +55,12 @@ vlan_interfaces:
     shutdown: False
     vrf: L2VLAN
     ip_address: "10.1.99.{{ device_id }}/24"
+
+  - name: "Vlan1401"
+    description: vrf-vpws
+    shutdown: False
+    vrf: VPWS
+    ip_address: "10.4.1.{{ device_id }}/24"
 
 static_routes:
   - vrf: "{{ management_vrf_name }}"
