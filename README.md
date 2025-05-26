@@ -48,7 +48,7 @@ Detailed information available under [`config-builder`](./config-builder/)
 ### Get cEOS
 
 ```bash
-ardl get eos --image-type cEOS --version 4.31.0F --import-docker
+ardl --token <your arista token> get eos --format cEOS --version 4.31.0F --import-docker
 ```
 
 > eos-downloader configuration is availble in [this repo](https://github.com/titom73/eos-downloader)
